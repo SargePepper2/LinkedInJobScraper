@@ -9,23 +9,29 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { ArrowUpDown, Filter } from "lucide-react";
-import { useSkillRankings } from "@/api/hooks";
+import { useSkillRankings } from "../api/hooks";
 
-type SortField = "name" | "frequency" | "percentage" | "category";
+type SortField = "name" | "count" | "percentage" | "category";
 type SortDir = "asc" | "desc";
 
 export default function SkillRankingsPage() {
   const [category, setCategory] = useState<string>("");
-  const [sortField, setSortField] = useState<SortField>("frequency");
+  const [sortField, setSortField] = useState<SortField>("count");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
-  const { data, isLoading } = useSkillRankings(category || undefined);
-  const skills = data?.skills ?? [];
+  const { data: rankings, isLoading } = useSkillRankings();
+
+  // Filter by category if selected
+  const skills = useMemo(() => {
+    const all = rankings ?? [];
+    if (!category) return all;
+    return all.filter((s) => s.category === category);
+  }, [rankings, category]);
 
   const categories = useMemo(() => {
-    const cats = new Set(skills.map((s) => s.category));
+    const cats = new Set((rankings ?? []).map((s) => s.category));
     return Array.from(cats).sort();
-  }, [skills]);
+  }, [rankings]);
 
   const sorted = useMemo(() => {
     return [...skills].sort((a, b) => {
@@ -115,10 +121,10 @@ export default function SkillRankingsPage() {
                 }}
               />
               <Bar
-                dataKey="frequency"
+                dataKey="count"
                 fill="#818cf8"
                 radius={[6, 6, 0, 0]}
-                name="Frequency"
+                name="Job Mentions"
               />
             </BarChart>
           </ResponsiveContainer>
@@ -134,7 +140,7 @@ export default function SkillRankingsPage() {
                 [
                   ["name", "Skill"],
                   ["category", "Category"],
-                  ["frequency", "Frequency"],
+                  ["count", "Mentions"],
                   ["percentage", "% of Jobs"],
                 ] as const
               ).map(([field, label]) => (
@@ -154,7 +160,7 @@ export default function SkillRankingsPage() {
           <tbody>
             {sorted.map((skill) => (
               <tr
-                key={skill.id}
+                key={skill.name}
                 className="border-b border-gray-800/50 transition-colors hover:bg-gray-800/40"
               >
                 <td className="px-5 py-3 font-medium text-white">
@@ -165,7 +171,7 @@ export default function SkillRankingsPage() {
                     {skill.category}
                   </span>
                 </td>
-                <td className="px-5 py-3 text-gray-300">{skill.frequency}</td>
+                <td className="px-5 py-3 text-gray-300">{skill.count}</td>
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-3">
                     <div className="h-2 w-24 overflow-hidden rounded-full bg-gray-800">

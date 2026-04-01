@@ -276,6 +276,144 @@ def get_skill_trends(
     return trends
 
 
+@dataclass
+class NicheAnalysis:
+    niche_name: str
+    total_jobs_in_niche: int
+    total_jobs_overall: int
+    niche_percentage: float  # what % of market this niche represents
+    core_skills: list[SkillRanking]  # skills that appear in this niche
+    differentiator_skills: list[SkillRanking]  # skills unique/overrepresented in this niche vs general market
+    complementary_skills: list[str]  # skills that pair well with this niche
+    career_paths: list[str]  # suggested job titles based on skill combos
+
+
+def get_niche_analysis(db: Session, niche_skills: list[str], niche_name: str = "Custom") -> NicheAnalysis:
+    """Analyze a skill niche -- find jobs that require these skills and what else they need."""
+    # Normalize niche skill names to lowercase for matching
+    niche_lower = [s.lower() for s in niche_skills]
+
+    # 1. Find all jobs that mention ANY of the niche_skills
+    niche_skill_ids = (
+        db.execute(
+            select(Skill.id).where(func.lower(Skill.name).in_(niche_lower))
+        ).scalars().all()
+    )
+
+    if not niche_skill_ids:
+        total_jobs = db.scalar(select(func.count(Job.id))) or 0
+        return NicheAnalysis(
+            niche_name=niche_name,
+            total_jobs_in_niche=0,
+            total_jobs_overall=total_jobs,
+            niche_percentage=0.0,
+            core_skills=[],
+            differentiator_skills=[],
+            complementary_skills=[],
+            career_paths=[],
+        )
+
+    # Job IDs that have at least one niche skill
+    niche_job_ids = (
+        db.execute(
+            select(SkillOccurrence.job_id)
+            .where(SkillOccurrence.skill_id.in_(niche_skill_ids))
+            .distinct()
+        ).scalars().all()
+    )
+
+    total_jobs_overall = db.scalar(select(func.count(Job.id))) or 1
+    total_niche_jobs = len(niche_job_ids)
+    niche_pct = round(total_niche_jobs / total_jobs_overall * 100, 1) if total_jobs_overall else 0.0
+
+    # 2. Rank skills within niche jobs
+    niche_skill_rows = (
+        db.execute(
+            select(
+                Skill.name,
+                Skill.category,
+                func.count(SkillOccurrence.id).label("cnt"),
+            )
+            .join(SkillOccurrence, SkillOccurrence.skill_id == Skill.id)
+            .where(SkillOccurrence.job_id.in_(niche_job_ids))
+            .group_by(Skill.name, Skill.category)
+            .order_by(func.count(SkillOccurrence.id).desc())
+        ).all()
+    )
+
+    niche_max = max(total_niche_jobs, 1)
+    core_skills = [
+        SkillRanking(
+            name=name,
+            category=cat.value if hasattr(cat, "value") else cat,
+            count=cnt,
+            percentage=round(cnt / niche_max * 100, 1),
+        )
+        for name, cat, cnt in niche_skill_rows
+    ]
+
+    # 3. Get overall skill frequencies to compare
+    overall_rows = (
+        db.execute(
+            select(
+                Skill.name,
+                Skill.category,
+                func.count(SkillOccurrence.id).label("cnt"),
+            )
+            .join(SkillOccurrence, SkillOccurrence.skill_id == Skill.id)
+            .group_by(Skill.name, Skill.category)
+        ).all()
+    )
+    overall_freq: dict[str, float] = {}
+    for name, _cat, cnt in overall_rows:
+        overall_freq[name] = cnt / total_jobs_overall * 100
+
+    # Differentiators: skills whose niche frequency is significantly higher than overall
+    differentiators = []
+    for sr in core_skills:
+        overall_pct = overall_freq.get(sr.name, 0)
+        # Overrepresented if niche pct is at least 1.5x overall pct and appears in >10% of niche jobs
+        if overall_pct > 0 and sr.percentage > 10:
+            ratio = sr.percentage / overall_pct
+            if ratio >= 1.5:
+                differentiators.append(sr)
+    # Sort by overrepresentation ratio descending
+    differentiators.sort(
+        key=lambda s: (s.percentage / max(overall_freq.get(s.name, 0.01), 0.01)),
+        reverse=True,
+    )
+
+    # 4. Complementary skills: high in niche but NOT one of the input niche skills
+    complementary = [
+        sr.name for sr in core_skills
+        if sr.name.lower() not in niche_lower and sr.percentage >= 20
+    ][:15]
+
+    # 5. Career paths based on niche job titles
+    niche_titles = (
+        db.execute(
+            select(Job.title)
+            .where(Job.id.in_(niche_job_ids))
+        ).scalars().all()
+    )
+    # Count title patterns and suggest paths
+    title_counter: Counter = Counter()
+    for title in niche_titles:
+        title_counter[title] += 1
+    career_paths = [title for title, _count in title_counter.most_common(10)]
+
+    return NicheAnalysis(
+        niche_name=niche_name,
+        total_jobs_in_niche=total_niche_jobs,
+        total_jobs_overall=total_jobs_overall,
+        niche_percentage=niche_pct,
+        core_skills=core_skills[:30],
+        differentiator_skills=differentiators[:15],
+        complementary_skills=complementary,
+        career_paths=career_paths,
+    )
+
+
 def get_analysis_summary(db: Session) -> AnalysisSummary:
     """Return high-level stats about the dataset."""
     total_jobs = db.scalar(select(func.count(Job.id))) or 0

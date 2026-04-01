@@ -6,6 +6,7 @@ from app.db import get_db
 from app.services.analyzer import (
     get_analysis_summary,
     get_gap_analysis,
+    get_niche_analysis,
     get_profile_suggestions,
     get_skill_trends,
 )
@@ -95,6 +96,57 @@ def trends(
         )
         for t in results
     ]
+
+
+# ---- Niche Analysis -----------------------------------------------------------
+
+
+class NicheSkillResponse(BaseModel):
+    name: str
+    category: str
+    count: int
+    percentage: float
+
+
+class NicheAnalysisResponse(BaseModel):
+    niche_name: str
+    total_jobs_in_niche: int
+    total_jobs_overall: int
+    niche_percentage: float
+    core_skills: list[NicheSkillResponse]
+    differentiator_skills: list[NicheSkillResponse]
+    complementary_skills: list[str]
+    career_paths: list[str]
+
+
+@router.get("/niche", response_model=NicheAnalysisResponse)
+def niche_analysis(
+    skills: str = Query(..., description="Comma-separated list of niche skills"),
+    name: str = Query("Custom", description="Human-readable niche name"),
+    db: Session = Depends(get_db),
+):
+    """Analyze a skill niche -- find jobs that require these skills and what else they need."""
+    skill_list = [s.strip() for s in skills.split(",") if s.strip()]
+    if not skill_list:
+        raise HTTPException(400, "At least one skill is required")
+
+    result = get_niche_analysis(db, niche_skills=skill_list, niche_name=name)
+    return NicheAnalysisResponse(
+        niche_name=result.niche_name,
+        total_jobs_in_niche=result.total_jobs_in_niche,
+        total_jobs_overall=result.total_jobs_overall,
+        niche_percentage=result.niche_percentage,
+        core_skills=[
+            NicheSkillResponse(name=s.name, category=s.category, count=s.count, percentage=s.percentage)
+            for s in result.core_skills
+        ],
+        differentiator_skills=[
+            NicheSkillResponse(name=s.name, category=s.category, count=s.count, percentage=s.percentage)
+            for s in result.differentiator_skills
+        ],
+        complementary_skills=result.complementary_skills,
+        career_paths=result.career_paths,
+    )
 
 
 @router.get("/summary", response_model=SummaryResponse)

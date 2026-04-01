@@ -1,6 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, type ImportJobPayload, type ProfilePayload } from "./client";
 
+export function useSummary() {
+  return useQuery({
+    queryKey: ["summary"],
+    queryFn: () => api.getSummary(),
+  });
+}
+
+export function useTrends(period = "weekly", limit = 10) {
+  return useQuery({
+    queryKey: ["trends", period, limit],
+    queryFn: () => api.getTrends(period, limit),
+  });
+}
+
 export function useSkillRankings(limit = 50) {
   return useQuery({
     queryKey: ["skill-rankings", limit],

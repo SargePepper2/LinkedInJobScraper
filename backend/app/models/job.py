@@ -32,6 +32,7 @@ class Job(Base):
     description: Mapped[str] = mapped_column(Text)
     source: Mapped[str] = mapped_column(String(50), default="manual")
     source_url: Mapped[str | None] = mapped_column(String(1000))
+    fingerprint: Mapped[str | None] = mapped_column(String(64), index=True)
     scraped_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     scrape_run_id: Mapped[int | None] = mapped_column(ForeignKey("scrape_runs.id"))
 

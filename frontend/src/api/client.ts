@@ -93,6 +93,24 @@ export interface ProfilePayload {
   skill_names: string[];
 }
 
+export interface TrendDataPoint {
+  date: string;
+  count: number;
+}
+
+export interface SkillTrend {
+  skill_name: string;
+  periods: TrendDataPoint[];
+}
+
+export interface SummaryStats {
+  total_jobs: number;
+  total_skills: number;
+  top_category: string;
+  avg_skills_per_job: number;
+  sources: { source: string; count: number }[];
+}
+
 // --- API functions (matching actual backend routes) ---
 
 export const api = {
@@ -151,4 +169,11 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ skill_names: skillNames }),
     }),
+
+  // GET /api/analysis/summary
+  getSummary: () => request<SummaryStats>("/analysis/summary"),
+
+  // GET /api/analysis/trends
+  getTrends: (period = "weekly", limit = 10) =>
+    request<SkillTrend[]>(`/analysis/trends?period=${period}&limit=${limit}`),
 };

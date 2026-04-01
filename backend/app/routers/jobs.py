@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, UploadFile
+from fastapi import APIRouter, Depends, HTTPException, UploadFile
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -30,6 +30,8 @@ class JobResponse(BaseModel):
 def paste_job(req: PasteJobRequest, db: Session = Depends(get_db)):
     """Import a single job description by pasting text."""
     job = import_text(db, req.description, req.title, req.company)
+    if job is None:
+        raise HTTPException(409, "Duplicate job detected — skipped")
     return JobResponse(
         id=job.id,
         title=job.title,

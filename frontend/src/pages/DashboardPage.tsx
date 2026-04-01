@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { TrendingUp, Briefcase, Layers, Target } from "lucide-react";
-import { useSkillRankings, useJobs } from "../api/hooks";
+import { useSkillRankings, useSummary } from "../api/hooks";
 
 function StatCard({
   label,
@@ -38,10 +38,9 @@ function StatCard({
 
 export default function DashboardPage() {
   const { data: rankings, isLoading } = useSkillRankings();
-  const { data: jobs } = useJobs();
+  const { data: summary } = useSummary();
 
   const topSkills = (rankings ?? []).slice(0, 10);
-  const uniqueSkills = new Set((rankings ?? []).map((r) => r.name)).size;
 
   return (
     <div className="space-y-8">
@@ -55,26 +54,26 @@ export default function DashboardPage() {
       {/* Stat cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
-          label="Total Jobs Tracked"
-          value={jobs?.length ?? "--"}
+          label="Total Jobs"
+          value={summary?.total_jobs ?? "--"}
           icon={Briefcase}
           color="bg-indigo-600"
         />
         <StatCard
-          label="Unique Skills"
-          value={uniqueSkills || "--"}
+          label="Total Skills"
+          value={summary?.total_skills ?? "--"}
           icon={Layers}
           color="bg-purple-600"
         />
         <StatCard
-          label="Top Skill Frequency"
-          value={topSkills[0] ? `${topSkills[0].percentage}%` : "--"}
+          label="Top Category"
+          value={summary?.top_category ?? "--"}
           icon={TrendingUp}
           color="bg-blue-600"
         />
         <StatCard
-          label="Most In-Demand"
-          value={topSkills[0]?.name ?? "--"}
+          label="Sources"
+          value={summary?.sources?.length ?? "--"}
           icon={Target}
           color="bg-emerald-600"
         />

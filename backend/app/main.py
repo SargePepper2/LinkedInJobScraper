@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-from app.routers import analysis, jobs, profile, skills
+from app.routers import analysis, jobs, profile, scrape, skills
 
 app = FastAPI(
     title="LinkedIn Job Skills Analyzer",
@@ -22,6 +22,7 @@ app.include_router(jobs.router, prefix="/api/jobs", tags=["Jobs"])
 app.include_router(skills.router, prefix="/api/skills", tags=["Skills"])
 app.include_router(analysis.router, prefix="/api/analysis", tags=["Analysis"])
 app.include_router(profile.router, prefix="/api/profile", tags=["Profile"])
+app.include_router(scrape.router, prefix="/api/scrape", tags=["Scrape"])
 
 
 @app.get("/api/health")

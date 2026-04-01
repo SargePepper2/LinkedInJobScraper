@@ -2,6 +2,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import {
   LayoutDashboard,
   BarChart3,
+  TrendingUp,
   Target,
   Upload,
   User,
@@ -15,6 +16,7 @@ import { useState } from "react";
 const navItems = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/skills", label: "Skill Rankings", icon: BarChart3 },
+  { to: "/trends", label: "Trends", icon: TrendingUp },
   { to: "/gap-analysis", label: "Gap Analysis", icon: Target },
   { to: "/import", label: "Import Jobs", icon: Upload },
   { to: "/profile", label: "My Profile", icon: User },

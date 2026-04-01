@@ -1,7 +1,8 @@
-"""Skill analysis — rankings, co-occurrence, gap analysis, profile optimization."""
+"""Skill analysis — rankings, co-occurrence, gap analysis, profile optimization, trends."""
 
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -183,4 +184,125 @@ def get_profile_suggestions(
         headline_options=headlines,
         missing_keywords=missing_keywords,
         trending_skills=trending,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Trend tracking
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class TrendPeriod:
+    date: str  # ISO date string for start of period
+    count: int
+
+
+@dataclass
+class SkillTrend:
+    skill_name: str
+    periods: list[TrendPeriod]
+
+
+@dataclass
+class AnalysisSummary:
+    total_jobs: int
+    total_skills: int
+    top_category: str | None
+    avg_skills_per_job: float
+
+
+def _week_start(dt: datetime) -> str:
+    """Return ISO date string for the Monday of the week containing *dt*."""
+    monday = dt - timedelta(days=dt.weekday())
+    return monday.strftime("%Y-%m-%d")
+
+
+def _month_start(dt: datetime) -> str:
+    return dt.strftime("%Y-%m-01")
+
+
+def get_skill_trends(
+    db: Session,
+    period: str = "weekly",
+    top_n: int = 15,
+) -> list[SkillTrend]:
+    """Return time-series skill demand grouped by week or month."""
+    # Determine the top N skills first
+    top_skills = get_skill_rankings(db, limit=top_n)
+    top_skill_names = {s.name for s in top_skills}
+
+    if not top_skill_names:
+        return []
+
+    # Pull all occurrences with their job scraped_at date
+    rows = (
+        db.execute(
+            select(Skill.name, Job.scraped_at)
+            .join(SkillOccurrence, SkillOccurrence.skill_id == Skill.id)
+            .join(Job, Job.id == SkillOccurrence.job_id)
+            .where(Skill.name.in_(top_skill_names))
+        )
+        .all()
+    )
+
+    bucket_fn = _week_start if period == "weekly" else _month_start
+
+    # skill_name -> period_key -> count
+    buckets: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for skill_name, scraped_at in rows:
+        key = bucket_fn(scraped_at)
+        buckets[skill_name][key] += 1
+
+    # Collect all period keys and sort them
+    all_periods: set[str] = set()
+    for periods_map in buckets.values():
+        all_periods.update(periods_map.keys())
+    sorted_periods = sorted(all_periods)
+
+    trends = []
+    for skill in top_skills:
+        period_counts = buckets.get(skill.name, {})
+        trends.append(
+            SkillTrend(
+                skill_name=skill.name,
+                periods=[
+                    TrendPeriod(date=p, count=period_counts.get(p, 0))
+                    for p in sorted_periods
+                ],
+            )
+        )
+
+    return trends
+
+
+def get_analysis_summary(db: Session) -> AnalysisSummary:
+    """Return high-level stats about the dataset."""
+    total_jobs = db.scalar(select(func.count(Job.id))) or 0
+    total_skills = db.scalar(select(func.count(Skill.id))) or 0
+
+    total_occurrences = db.scalar(select(func.count(SkillOccurrence.id))) or 0
+    avg_skills = round(total_occurrences / max(total_jobs, 1), 1)
+
+    # Top category by occurrence count
+    top_cat_row = (
+        db.execute(
+            select(Skill.category, func.count(SkillOccurrence.id).label("cnt"))
+            .join(SkillOccurrence, SkillOccurrence.skill_id == Skill.id)
+            .group_by(Skill.category)
+            .order_by(func.count(SkillOccurrence.id).desc())
+            .limit(1)
+        )
+        .first()
+    )
+    top_category = None
+    if top_cat_row:
+        cat = top_cat_row[0]
+        top_category = cat.value if hasattr(cat, "value") else cat
+
+    return AnalysisSummary(
+        total_jobs=total_jobs,
+        total_skills=total_skills,
+        top_category=top_category,
+        avg_skills_per_job=avg_skills,
     )

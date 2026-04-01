@@ -9,6 +9,7 @@ from app.services.analyzer import (
     get_niche_analysis,
     get_profile_suggestions,
     get_skill_trends,
+    get_skill_values,
 )
 
 router = APIRouter()
@@ -146,6 +147,53 @@ def niche_analysis(
         ],
         complementary_skills=result.complementary_skills,
         career_paths=result.career_paths,
+    )
+
+
+# ---- Skill Value Analysis ----------------------------------------------------
+
+
+class SkillValueResponse(BaseModel):
+    name: str
+    category: str
+    job_count: int
+    avg_salary: float
+    median_salary: float
+    salary_premium: float
+    value_score: float
+
+
+class SkillValueReportResponse(BaseModel):
+    overall_avg_salary: float
+    overall_median_salary: float
+    total_jobs_with_salary: int
+    skills: list[SkillValueResponse]
+
+
+@router.get("/skill-values", response_model=SkillValueReportResponse)
+def skill_values(
+    min_jobs: int = Query(2, ge=1, description="Minimum jobs mentioning a skill to include it"),
+    limit: int = Query(30, ge=1, le=200, description="Max skills to return"),
+    db: Session = Depends(get_db),
+):
+    """Calculate the dollar value of each skill based on salary data in job postings."""
+    report = get_skill_values(db, min_jobs=min_jobs, limit=limit)
+    return SkillValueReportResponse(
+        overall_avg_salary=report.overall_avg_salary,
+        overall_median_salary=report.overall_median_salary,
+        total_jobs_with_salary=report.total_jobs_with_salary,
+        skills=[
+            SkillValueResponse(
+                name=sv.name,
+                category=sv.category,
+                job_count=sv.job_count,
+                avg_salary=sv.avg_salary,
+                median_salary=sv.median_salary,
+                salary_premium=sv.salary_premium,
+                value_score=sv.value_score,
+            )
+            for sv in report.skills
+        ],
     )
 
 

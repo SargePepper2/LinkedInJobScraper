@@ -1,10 +1,11 @@
-"""Skill analysis — rankings, co-occurrence, gap analysis, profile optimization, trends."""
+"""Skill analysis — rankings, co-occurrence, gap analysis, profile optimization, trends, salary valuation."""
 
+import statistics
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
-from sqlalchemy import func, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
 from app.models.job import Job, SkillOccurrence
@@ -411,6 +412,154 @@ def get_niche_analysis(db: Session, niche_skills: list[str], niche_name: str = "
         differentiator_skills=differentiators[:15],
         complementary_skills=complementary,
         career_paths=career_paths,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Skill salary valuation
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class SkillValue:
+    name: str
+    category: str
+    job_count: int  # how many jobs mention this skill
+    avg_salary: float  # average midpoint salary of jobs with this skill
+    median_salary: float  # median midpoint salary
+    salary_premium: float  # % above overall average salary
+    value_score: float  # composite score combining demand + salary
+
+
+@dataclass
+class SkillValueReport:
+    overall_avg_salary: float
+    overall_median_salary: float
+    total_jobs_with_salary: int
+    skills: list[SkillValue]
+
+
+def get_skill_values(db: Session, min_jobs: int = 2, limit: int = 50) -> SkillValueReport:
+    """Calculate the dollar value of each skill based on salary data in job postings."""
+
+    # 1. Find all jobs that have salary_min or salary_max set
+    salary_jobs = (
+        db.execute(
+            select(Job.id, Job.salary_min, Job.salary_max).where(
+                or_(Job.salary_min.isnot(None), Job.salary_max.isnot(None))
+            )
+        )
+        .all()
+    )
+
+    if not salary_jobs:
+        return SkillValueReport(
+            overall_avg_salary=0.0,
+            overall_median_salary=0.0,
+            total_jobs_with_salary=0,
+            skills=[],
+        )
+
+    # 2. Calculate midpoint salary for each job
+    job_midpoints: dict[int, float] = {}
+    all_midpoints: list[float] = []
+    for job_id, sal_min, sal_max in salary_jobs:
+        if sal_min is not None and sal_max is not None:
+            mid = (sal_min + sal_max) / 2
+        elif sal_min is not None:
+            mid = float(sal_min)
+        else:
+            mid = float(sal_max)
+        job_midpoints[job_id] = mid
+        all_midpoints.append(mid)
+
+    overall_avg = statistics.mean(all_midpoints)
+    overall_median = statistics.median(all_midpoints)
+    salary_job_ids = list(job_midpoints.keys())
+
+    # 3. For each skill, collect midpoint salaries of jobs that mention it
+    rows = (
+        db.execute(
+            select(Skill.name, Skill.category, SkillOccurrence.job_id)
+            .join(SkillOccurrence, SkillOccurrence.skill_id == Skill.id)
+            .where(SkillOccurrence.job_id.in_(salary_job_ids))
+        )
+        .all()
+    )
+
+    skill_salaries: dict[str, list[float]] = defaultdict(list)
+    skill_categories: dict[str, str] = {}
+    for name, category, job_id in rows:
+        cat_str = category.value if hasattr(category, "value") else category
+        skill_categories[name] = cat_str
+        skill_salaries[name].append(job_midpoints[job_id])
+
+    # Filter by min_jobs threshold
+    qualified = {
+        name: sals for name, sals in skill_salaries.items() if len(sals) >= min_jobs
+    }
+
+    if not qualified:
+        return SkillValueReport(
+            overall_avg_salary=round(overall_avg, 2),
+            overall_median_salary=round(overall_median, 2),
+            total_jobs_with_salary=len(salary_jobs),
+            skills=[],
+        )
+
+    # 4. Calculate per-skill stats
+    raw_skills: list[dict] = []
+    for name, sals in qualified.items():
+        avg_sal = statistics.mean(sals)
+        med_sal = statistics.median(sals)
+        premium = ((avg_sal - overall_avg) / overall_avg) * 100 if overall_avg else 0.0
+        raw_skills.append(
+            {
+                "name": name,
+                "category": skill_categories[name],
+                "job_count": len(sals),
+                "avg_salary": avg_sal,
+                "median_salary": med_sal,
+                "salary_premium": premium,
+            }
+        )
+
+    # 5. Calculate value_score: normalize(demand) * 0.4 + normalize(salary_premium) * 0.6
+    max_demand = max(s["job_count"] for s in raw_skills)
+    min_demand = min(s["job_count"] for s in raw_skills)
+    demand_range = max_demand - min_demand if max_demand != min_demand else 1
+
+    premiums = [s["salary_premium"] for s in raw_skills]
+    max_premium = max(premiums)
+    min_premium = min(premiums)
+    premium_range = max_premium - min_premium if max_premium != min_premium else 1
+
+    skill_values: list[SkillValue] = []
+    for s in raw_skills:
+        norm_demand = (s["job_count"] - min_demand) / demand_range
+        norm_premium = (s["salary_premium"] - min_premium) / premium_range
+        value_score = norm_demand * 0.4 + norm_premium * 0.6
+
+        skill_values.append(
+            SkillValue(
+                name=s["name"],
+                category=s["category"],
+                job_count=s["job_count"],
+                avg_salary=round(s["avg_salary"], 2),
+                median_salary=round(s["median_salary"], 2),
+                salary_premium=round(s["salary_premium"], 1),
+                value_score=round(value_score, 4),
+            )
+        )
+
+    # 6. Sort by value_score descending
+    skill_values.sort(key=lambda sv: sv.value_score, reverse=True)
+
+    return SkillValueReport(
+        overall_avg_salary=round(overall_avg, 2),
+        overall_median_salary=round(overall_median, 2),
+        total_jobs_with_salary=len(salary_jobs),
+        skills=skill_values[:limit],
     )
 
 

@@ -5,13 +5,13 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.services.scraper import run_scrape_pipeline
+from app.services.scraper import SCRAPERS, run_scrape_pipeline
 
 router = APIRouter()
 
 
 class ScrapeRequest(BaseModel):
-    source: str = Field(..., pattern="^(hn|indeed|linkedin)$")
+    source: str = Field(..., pattern="^(hn|indeed|linkedin|remoteok|weworkremotely|builtin)$")
     query: str
     location: str | None = None
     limit: int = Field(25, ge=1, le=200)
@@ -23,6 +23,12 @@ class ScrapeResponse(BaseModel):
     jobs_found: int
     imported: int
     skipped_duplicates: int
+
+
+@router.get("/sources")
+def list_sources():
+    """Return available scraper source names."""
+    return {"sources": sorted(SCRAPERS.keys())}
 
 
 @router.post("/run", response_model=ScrapeResponse)

@@ -135,6 +135,248 @@ class LinkedInScraper(JobScraper):
         raise NotImplementedError("LinkedIn scraper is not yet implemented")
 
 
+class RemoteOKScraper(JobScraper):
+    """Scrape RemoteOK via their public JSON API."""
+
+    source_name = "remoteok"
+    _API_URL = "https://remoteok.com/api"
+
+    def scrape(self, query: str, location: str | None = None, limit: int = 25) -> list[RawJob]:
+        headers = {
+            "User-Agent": "SkillScope/1.0 (job-skill-analytics; contact@skillscope.dev)",
+        }
+        try:
+            resp = httpx.get(self._API_URL, headers=headers, timeout=20)
+            resp.raise_for_status()
+            data = resp.json()
+        except Exception:
+            logger.exception("Failed to fetch RemoteOK API")
+            return []
+
+        # The first element in the response is a metadata/legal notice object; skip it
+        if data and isinstance(data, list) and isinstance(data[0], dict) and "id" not in data[0]:
+            data = data[1:]
+
+        query_lower = query.lower() if query else ""
+        jobs: list[RawJob] = []
+
+        for item in data:
+            position = item.get("position", "") or ""
+            description = item.get("description", "") or ""
+
+            if query_lower and query_lower not in position.lower() and query_lower not in description.lower():
+                continue
+
+            company = item.get("company", "") or None
+            loc = item.get("location", "") or "Remote"
+            tags = item.get("tags", []) or []
+            url = item.get("url", "") or f"https://remoteok.com/remote-jobs/{item.get('id', '')}"
+
+            # Build a richer description from tags + description
+            tag_line = f"Tags: {', '.join(tags)}\n\n" if tags else ""
+            full_desc = f"{tag_line}{description}"
+
+            jobs.append(
+                RawJob(
+                    title=position[:300],
+                    company=company[:200] if company else None,
+                    location=loc[:200],
+                    description=full_desc[:5000],
+                    source="remoteok",
+                    url=url,
+                )
+            )
+
+            if len(jobs) >= limit:
+                break
+
+        return jobs
+
+
+class WeWorkRemotelyScraper(JobScraper):
+    """Scrape We Work Remotely via their public RSS feeds."""
+
+    source_name = "weworkremotely"
+    _FEEDS = [
+        "https://weworkremotely.com/categories/remote-programming-jobs.rss",
+        "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss",
+    ]
+
+    def scrape(self, query: str, location: str | None = None, limit: int = 25) -> list[RawJob]:
+        import xml.etree.ElementTree as ET
+
+        query_lower = query.lower() if query else ""
+        jobs: list[RawJob] = []
+
+        for feed_url in self._FEEDS:
+            if len(jobs) >= limit:
+                break
+
+            try:
+                resp = httpx.get(
+                    feed_url,
+                    headers={"User-Agent": "SkillScope/1.0"},
+                    timeout=15,
+                )
+                resp.raise_for_status()
+            except Exception:
+                logger.exception("Failed to fetch WWR feed: %s", feed_url)
+                continue
+
+            try:
+                root = ET.fromstring(resp.text)
+            except ET.ParseError:
+                logger.exception("Failed to parse WWR RSS XML from %s", feed_url)
+                continue
+
+            for item in root.findall(".//item"):
+                if len(jobs) >= limit:
+                    break
+
+                raw_title = (item.findtext("title") or "").strip()
+                link = (item.findtext("link") or "").strip()
+
+                # Description may be in content:encoded or description
+                # content:encoded namespace
+                desc = ""
+                for child in item:
+                    if "encoded" in child.tag:
+                        desc = child.text or ""
+                        break
+                if not desc:
+                    desc = (item.findtext("description") or "").strip()
+
+                # Strip HTML from description
+                plain_desc = re.sub(r"<[^>]+>", " ", desc)
+                plain_desc = re.sub(r"\s+", " ", plain_desc).strip()
+
+                # WWR titles are often "Company: Job Title"
+                if ": " in raw_title:
+                    company, title = raw_title.split(": ", 1)
+                else:
+                    company = None
+                    title = raw_title
+
+                if query_lower:
+                    if query_lower not in title.lower() and query_lower not in plain_desc.lower():
+                        continue
+
+                jobs.append(
+                    RawJob(
+                        title=title[:300],
+                        company=company[:200] if company else None,
+                        location="Remote",
+                        description=plain_desc[:5000],
+                        source="weworkremotely",
+                        url=link or None,
+                    )
+                )
+
+        return jobs
+
+
+class BuiltInScraper(JobScraper):
+    """Scrape BuiltIn job listings via HTML parsing."""
+
+    source_name = "builtin"
+    _BASE_URL = "https://builtin.com"
+    _LISTING_URL = "https://builtin.com/jobs/remote/dev-engineering"
+
+    def scrape(self, query: str, location: str | None = None, limit: int = 25) -> list[RawJob]:
+        import time
+
+        from bs4 import BeautifulSoup
+
+        # Cap to avoid hammering the site
+        effective_limit = min(limit, 15)
+        query_lower = query.lower() if query else ""
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        }
+
+        try:
+            resp = httpx.get(self._LISTING_URL, headers=headers, timeout=20, follow_redirects=True)
+            resp.raise_for_status()
+        except Exception:
+            logger.exception("Failed to fetch BuiltIn listing page")
+            return []
+
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        # BuiltIn uses data-id attributes on job cards; look for common card patterns
+        cards = soup.select("[data-id]") or soup.select(".job-card") or soup.select("article")
+        if not cards:
+            # Fallback: look for links that point to /job/ paths
+            cards = soup.select('a[href*="/job/"]')
+
+        jobs: list[RawJob] = []
+
+        for card in cards:
+            if len(jobs) >= effective_limit:
+                break
+
+            # Extract title
+            title_el = card.select_one("h2, h3, .job-title, [data-testid*='title']")
+            title = title_el.get_text(strip=True) if title_el else card.get_text(strip=True)[:200]
+            if not title:
+                continue
+
+            # Extract company
+            company_el = card.select_one(".company-name, [data-testid*='company'], .employer")
+            company = company_el.get_text(strip=True) if company_el else None
+
+            # Extract location
+            loc_el = card.select_one(".job-location, [data-testid*='location']")
+            loc = loc_el.get_text(strip=True) if loc_el else "Remote"
+
+            # Extract detail link
+            link_el = card.select_one("a[href]") if card.name != "a" else card
+            detail_url = None
+            if link_el and link_el.get("href"):
+                href = link_el["href"]
+                detail_url = href if href.startswith("http") else f"{self._BASE_URL}{href}"
+
+            # Fetch detail page for full description (with rate limiting)
+            description = ""
+            if detail_url:
+                time.sleep(1)
+                try:
+                    detail_resp = httpx.get(
+                        detail_url, headers=headers, timeout=15, follow_redirects=True
+                    )
+                    detail_resp.raise_for_status()
+                    detail_soup = BeautifulSoup(detail_resp.text, "html.parser")
+                    desc_el = detail_soup.select_one(
+                        ".job-description, [data-testid*='description'], .description, article"
+                    )
+                    if desc_el:
+                        description = re.sub(r"\s+", " ", desc_el.get_text(strip=True))[:5000]
+                except Exception:
+                    logger.debug("Failed to fetch BuiltIn detail page: %s", detail_url)
+
+            if not description:
+                description = title
+
+            if query_lower:
+                if query_lower not in title.lower() and query_lower not in description.lower():
+                    continue
+
+            jobs.append(
+                RawJob(
+                    title=title[:300],
+                    company=company[:200] if company else None,
+                    location=loc[:200],
+                    description=description[:5000],
+                    source="builtin",
+                    url=detail_url,
+                )
+            )
+
+        return jobs
+
+
 # ---------------------------------------------------------------------------
 # Registry
 # ---------------------------------------------------------------------------
@@ -143,6 +385,9 @@ SCRAPERS: dict[str, type[JobScraper]] = {
     "hn": HNHiringScraper,
     "indeed": IndeedScraper,
     "linkedin": LinkedInScraper,
+    "remoteok": RemoteOKScraper,
+    "weworkremotely": WeWorkRemotelyScraper,
+    "builtin": BuiltInScraper,
 }
 
 

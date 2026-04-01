@@ -2,1011 +2,1990 @@
   {
     "name": "Python",
     "category": "language",
-    "aliases": ["python3", "py", "CPython", "python2"]
+    "aliases": [
+      "python3",
+      "py",
+      "CPython",
+      "python2"
+    ]
   },
   {
     "name": "JavaScript",
     "category": "language",
-    "aliases": ["JS", "ECMAScript", "ES6", "ES2015", "ES2016", "ES2017", "ES2020", "ES2021", "ES2022", "Vanilla JS"]
+    "aliases": [
+      "JS",
+      "ECMAScript",
+      "ES6",
+      "ES2015",
+      "ES2016",
+      "ES2017",
+      "ES2020",
+      "ES2021",
+      "ES2022",
+      "Vanilla JS"
+    ]
   },
   {
     "name": "TypeScript",
     "category": "language",
-    "aliases": ["TS", "typescript"]
+    "aliases": [
+      "TS",
+      "typescript"
+    ]
   },
   {
     "name": "Java",
     "category": "language",
-    "aliases": ["JDK", "J2EE", "Java SE", "Java EE", "Jakarta EE", "OpenJDK"]
+    "aliases": [
+      "JDK",
+      "J2EE",
+      "Java SE",
+      "Java EE",
+      "Jakarta EE",
+      "OpenJDK"
+    ]
   },
   {
     "name": "C#",
     "category": "language",
-    "aliases": ["C Sharp", "CSharp", "dotnet", ".NET language", "C-sharp"]
+    "aliases": [
+      "C Sharp",
+      "CSharp",
+      "dotnet",
+      ".NET language",
+      "C-sharp"
+    ]
   },
   {
     "name": "C++",
     "category": "language",
-    "aliases": ["CPP", "Cplusplus", "C plus plus", "C++11", "C++14", "C++17", "C++20"]
+    "aliases": [
+      "CPP",
+      "Cplusplus",
+      "C plus plus",
+      "C++11",
+      "C++14",
+      "C++17",
+      "C++20"
+    ]
   },
   {
     "name": "Go",
     "category": "language",
-    "aliases": ["Golang", "go-lang"]
+    "aliases": [
+      "Golang",
+      "go-lang"
+    ]
   },
   {
     "name": "Rust",
     "category": "language",
-    "aliases": ["rustlang", "rust-lang"]
+    "aliases": [
+      "rustlang",
+      "rust-lang"
+    ]
   },
   {
     "name": "Ruby",
     "category": "language",
-    "aliases": ["rb", "ruby-lang"]
+    "aliases": [
+      "rb",
+      "ruby-lang"
+    ]
   },
   {
     "name": "PHP",
     "category": "language",
-    "aliases": ["php8", "php7", "PHP-FPM"]
+    "aliases": [
+      "php8",
+      "php7",
+      "PHP-FPM"
+    ]
   },
   {
     "name": "Swift",
     "category": "language",
-    "aliases": ["Apple Swift", "swift-lang"]
+    "aliases": [
+      "Apple Swift",
+      "swift-lang"
+    ]
   },
   {
     "name": "Kotlin",
     "category": "language",
-    "aliases": ["KT", "kotlin-lang"]
+    "aliases": [
+      "KT",
+      "kotlin-lang"
+    ]
   },
   {
     "name": "Scala",
     "category": "language",
-    "aliases": ["scala-lang"]
+    "aliases": [
+      "scala-lang"
+    ]
   },
   {
     "name": "R",
     "category": "language",
-    "aliases": ["R language", "R-lang", "CRAN", "R programming"]
+    "aliases": [
+      "R language",
+      "R-lang",
+      "CRAN",
+      "R programming"
+    ]
   },
   {
     "name": "SQL",
     "category": "language",
-    "aliases": ["Structured Query Language", "T-SQL", "PL/SQL", "TSQL", "PLSQL"]
+    "aliases": [
+      "Structured Query Language",
+      "T-SQL",
+      "PL/SQL",
+      "TSQL",
+      "PLSQL"
+    ]
   },
   {
     "name": "HTML",
     "category": "language",
-    "aliases": ["HTML5", "HyperText Markup Language"]
+    "aliases": [
+      "HTML5",
+      "HyperText Markup Language"
+    ]
   },
   {
     "name": "CSS",
     "category": "language",
-    "aliases": ["CSS3", "Cascading Style Sheets", "stylesheets"]
+    "aliases": [
+      "CSS3",
+      "Cascading Style Sheets",
+      "stylesheets"
+    ]
   },
   {
     "name": "Bash",
     "category": "language",
-    "aliases": ["Shell", "Shell scripting", "Bash scripting", "sh", "Bourne shell", "Zsh"]
+    "aliases": [
+      "Shell",
+      "Shell scripting",
+      "Bash scripting",
+      "sh",
+      "Bourne shell",
+      "Zsh"
+    ]
   },
   {
     "name": "PowerShell",
     "category": "language",
-    "aliases": ["PS", "pwsh", "PSCore", "Windows PowerShell"]
+    "aliases": [
+      "PS",
+      "pwsh",
+      "PSCore",
+      "Windows PowerShell"
+    ]
   },
   {
     "name": "Dart",
     "category": "language",
-    "aliases": ["dartlang"]
+    "aliases": [
+      "dartlang"
+    ]
   },
   {
     "name": "Lua",
     "category": "language",
-    "aliases": ["lua-lang"]
+    "aliases": [
+      "lua-lang"
+    ]
   },
   {
     "name": "Perl",
     "category": "language",
-    "aliases": ["perl5", "perl6"]
+    "aliases": [
+      "perl5",
+      "perl6"
+    ]
   },
   {
     "name": "Objective-C",
     "category": "language",
-    "aliases": ["ObjC", "Obj-C", "Objective C"]
+    "aliases": [
+      "ObjC",
+      "Obj-C",
+      "Objective C"
+    ]
   },
   {
     "name": "Elixir",
     "category": "language",
-    "aliases": ["elixir-lang"]
+    "aliases": [
+      "elixir-lang"
+    ]
   },
   {
     "name": "Haskell",
     "category": "language",
-    "aliases": ["GHC", "haskell-lang"]
+    "aliases": [
+      "GHC",
+      "haskell-lang"
+    ]
   },
   {
     "name": "MATLAB",
     "category": "language",
-    "aliases": ["Matlab", "matlab"]
+    "aliases": [
+      "Matlab",
+      "matlab"
+    ]
   },
   {
     "name": "Julia",
     "category": "language",
-    "aliases": ["julialang", "julia-lang"]
+    "aliases": [
+      "julialang",
+      "julia-lang"
+    ]
   },
   {
     "name": "Solidity",
     "category": "language",
-    "aliases": ["Sol", "Ethereum Solidity"]
+    "aliases": [
+      "Sol",
+      "Ethereum Solidity"
+    ]
   },
   {
     "name": "Assembly",
     "category": "language",
-    "aliases": ["ASM", "Assembly language", "x86", "ARM assembly", "NASM", "MASM"]
+    "aliases": [
+      "ASM",
+      "Assembly language",
+      "x86",
+      "ARM assembly",
+      "NASM",
+      "MASM"
+    ]
   },
   {
     "name": "COBOL",
     "category": "language",
-    "aliases": ["Cobol", "Common Business-Oriented Language"]
+    "aliases": [
+      "Cobol",
+      "Common Business-Oriented Language"
+    ]
   },
   {
     "name": "React",
     "category": "framework",
-    "aliases": ["React.js", "ReactJS", "React 18", "React 19"]
+    "aliases": [
+      "React.js",
+      "ReactJS",
+      "React 18",
+      "React 19"
+    ]
   },
   {
     "name": "Angular",
     "category": "framework",
-    "aliases": ["Angular.js", "AngularJS", "Angular 2+", "ng"]
+    "aliases": [
+      "Angular.js",
+      "AngularJS",
+      "Angular 2+",
+      "ng"
+    ]
   },
   {
     "name": "Vue.js",
     "category": "framework",
-    "aliases": ["Vue", "VueJS", "Vue 3", "Vue 2"]
+    "aliases": [
+      "Vue",
+      "VueJS",
+      "Vue 3",
+      "Vue 2"
+    ]
   },
   {
     "name": "Next.js",
     "category": "framework",
-    "aliases": ["NextJS", "Next", "Nextjs"]
+    "aliases": [
+      "NextJS",
+      "Next",
+      "Nextjs"
+    ]
   },
   {
     "name": "Svelte",
     "category": "framework",
-    "aliases": ["SvelteJS", "SvelteKit", "Svelte Kit"]
+    "aliases": [
+      "SvelteJS",
+      "SvelteKit",
+      "Svelte Kit"
+    ]
   },
   {
     "name": "Django",
     "category": "framework",
-    "aliases": ["Django REST", "DRF", "Django REST Framework", "django-rest-framework"]
+    "aliases": [
+      "Django REST",
+      "DRF",
+      "Django REST Framework",
+      "django-rest-framework"
+    ]
   },
   {
     "name": "Flask",
     "category": "framework",
-    "aliases": ["Flask API", "flask-restful"]
+    "aliases": [
+      "Flask API",
+      "flask-restful"
+    ]
   },
   {
     "name": "FastAPI",
     "category": "framework",
-    "aliases": ["Fast API", "fastapi"]
+    "aliases": [
+      "Fast API",
+      "fastapi"
+    ]
   },
   {
     "name": "Spring Boot",
     "category": "framework",
-    "aliases": ["Spring", "SpringBoot", "Spring Framework", "Spring MVC", "Spring Cloud"]
+    "aliases": [
+      "Spring",
+      "SpringBoot",
+      "Spring Framework",
+      "Spring MVC",
+      "Spring Cloud"
+    ]
   },
   {
     "name": ".NET",
     "category": "framework",
-    "aliases": ["dotnet", ".NET Core", ".NET Framework", ".NET 6", ".NET 7", ".NET 8", ".NET 9", "DotNet"]
+    "aliases": [
+      "dotnet",
+      ".NET Core",
+      ".NET Framework",
+      ".NET 6",
+      ".NET 7",
+      ".NET 8",
+      ".NET 9",
+      "DotNet"
+    ]
   },
   {
     "name": "ASP.NET",
     "category": "framework",
-    "aliases": ["ASP.NET Core", "ASP.NET MVC", "ASPNET", "ASP.NET Web API", "Razor Pages"]
+    "aliases": [
+      "ASP.NET Core",
+      "ASP.NET MVC",
+      "ASPNET",
+      "ASP.NET Web API",
+      "Razor Pages"
+    ]
   },
   {
     "name": "Express.js",
     "category": "framework",
-    "aliases": ["Express", "ExpressJS"]
+    "aliases": [
+      "Express",
+      "ExpressJS"
+    ]
   },
   {
     "name": "NestJS",
     "category": "framework",
-    "aliases": ["Nest.js", "Nest", "NestJs"]
+    "aliases": [
+      "Nest.js",
+      "Nest",
+      "NestJs"
+    ]
   },
   {
     "name": "Ruby on Rails",
     "category": "framework",
-    "aliases": ["Rails", "RoR", "Ruby Rails"]
+    "aliases": [
+      "Rails",
+      "RoR",
+      "Ruby Rails"
+    ]
   },
   {
     "name": "Laravel",
     "category": "framework",
-    "aliases": ["Laravel PHP"]
+    "aliases": [
+      "Laravel PHP"
+    ]
   },
   {
     "name": "Remix",
     "category": "framework",
-    "aliases": ["Remix.run", "RemixJS"]
+    "aliases": [
+      "Remix.run",
+      "RemixJS"
+    ]
   },
   {
     "name": "Nuxt.js",
     "category": "framework",
-    "aliases": ["Nuxt", "NuxtJS", "Nuxt 3"]
+    "aliases": [
+      "Nuxt",
+      "NuxtJS",
+      "Nuxt 3"
+    ]
   },
   {
     "name": "Blazor",
     "category": "framework",
-    "aliases": ["Blazor Server", "Blazor WASM", "Blazor WebAssembly"]
+    "aliases": [
+      "Blazor Server",
+      "Blazor WASM",
+      "Blazor WebAssembly"
+    ]
   },
   {
     "name": "Gatsby",
     "category": "framework",
-    "aliases": ["GatsbyJS", "Gatsby.js"]
+    "aliases": [
+      "GatsbyJS",
+      "Gatsby.js"
+    ]
   },
   {
     "name": "Tailwind CSS",
     "category": "framework",
-    "aliases": ["Tailwind", "TailwindCSS", "tailwindcss"]
+    "aliases": [
+      "Tailwind",
+      "TailwindCSS",
+      "tailwindcss"
+    ]
   },
   {
     "name": "Bootstrap",
     "category": "framework",
-    "aliases": ["Bootstrap CSS", "Bootstrap 5", "Bootstrap 4", "Twitter Bootstrap"]
+    "aliases": [
+      "Bootstrap CSS",
+      "Bootstrap 5",
+      "Bootstrap 4",
+      "Twitter Bootstrap"
+    ]
   },
   {
     "name": "jQuery",
     "category": "framework",
-    "aliases": ["JQuery", "jquery"]
+    "aliases": [
+      "JQuery",
+      "jquery"
+    ]
   },
   {
     "name": "Node.js",
     "category": "framework",
-    "aliases": ["Node", "NodeJS", "node.js"]
+    "aliases": [
+      "Node",
+      "NodeJS",
+      "node.js"
+    ]
   },
   {
     "name": "Deno",
     "category": "framework",
-    "aliases": ["Deno.js", "denoland"]
+    "aliases": [
+      "Deno.js",
+      "denoland"
+    ]
   },
   {
     "name": "Bun",
     "category": "framework",
-    "aliases": ["Bun.js", "bunjs"]
+    "aliases": [
+      "Bun.js",
+      "bunjs"
+    ]
   },
   {
     "name": "Electron",
     "category": "framework",
-    "aliases": ["Electron.js", "ElectronJS"]
+    "aliases": [
+      "Electron.js",
+      "ElectronJS"
+    ]
   },
   {
     "name": "React Native",
     "category": "framework",
-    "aliases": ["RN", "ReactNative", "React-Native"]
+    "aliases": [
+      "RN",
+      "ReactNative",
+      "React-Native"
+    ]
   },
   {
     "name": "Flutter",
     "category": "framework",
-    "aliases": ["Flutter SDK", "flutter"]
+    "aliases": [
+      "Flutter SDK",
+      "flutter"
+    ]
   },
   {
     "name": "SwiftUI",
     "category": "framework",
-    "aliases": ["Swift UI"]
+    "aliases": [
+      "Swift UI"
+    ]
   },
   {
     "name": "Unity",
     "category": "framework",
-    "aliases": ["Unity3D", "Unity Engine", "Unity game engine"]
+    "aliases": [
+      "Unity3D",
+      "Unity Engine",
+      "Unity game engine"
+    ]
   },
   {
     "name": "Unreal Engine",
     "category": "framework",
-    "aliases": ["UE", "UE4", "UE5", "Unreal"]
+    "aliases": [
+      "UE",
+      "UE4",
+      "UE5",
+      "Unreal"
+    ]
   },
   {
     "name": "TensorFlow",
     "category": "framework",
-    "aliases": ["TF", "Tensorflow", "tensorflow", "TensorFlow 2", "tf.keras"]
+    "aliases": [
+      "TF",
+      "Tensorflow",
+      "tensorflow",
+      "TensorFlow 2",
+      "tf.keras"
+    ]
   },
   {
     "name": "PyTorch",
     "category": "framework",
-    "aliases": ["Pytorch", "pytorch", "torch"]
+    "aliases": [
+      "Pytorch",
+      "pytorch",
+      "torch"
+    ]
   },
   {
     "name": "Scikit-learn",
     "category": "framework",
-    "aliases": ["sklearn", "scikit learn", "Scikit Learn", "scikit-learn"]
+    "aliases": [
+      "sklearn",
+      "scikit learn",
+      "Scikit Learn",
+      "scikit-learn"
+    ]
   },
   {
     "name": "Pandas",
     "category": "framework",
-    "aliases": ["pandas", "pd"]
+    "aliases": [
+      "pandas",
+      "pd"
+    ]
   },
   {
     "name": "NumPy",
     "category": "framework",
-    "aliases": ["numpy", "Numpy", "np"]
+    "aliases": [
+      "numpy",
+      "Numpy",
+      "np"
+    ]
   },
   {
     "name": "Apache Spark",
     "category": "framework",
-    "aliases": ["Spark", "PySpark", "Spark SQL", "Apache Spark"]
+    "aliases": [
+      "Spark",
+      "PySpark",
+      "Spark SQL",
+      "Apache Spark"
+    ]
   },
   {
     "name": "Hadoop",
     "category": "framework",
-    "aliases": ["Apache Hadoop", "HDFS", "MapReduce", "Hadoop ecosystem"]
+    "aliases": [
+      "Apache Hadoop",
+      "HDFS",
+      "MapReduce",
+      "Hadoop ecosystem"
+    ]
   },
   {
     "name": "Kafka",
     "category": "framework",
-    "aliases": ["Apache Kafka", "Kafka Streams", "Confluent Kafka"]
+    "aliases": [
+      "Apache Kafka",
+      "Kafka Streams",
+      "Confluent Kafka"
+    ]
   },
   {
     "name": "RabbitMQ",
     "category": "framework",
-    "aliases": ["Rabbit MQ", "RabbitMQ", "AMQP"]
+    "aliases": [
+      "Rabbit MQ",
+      "RabbitMQ",
+      "AMQP"
+    ]
   },
   {
     "name": "PostgreSQL",
     "category": "database",
-    "aliases": ["Postgres", "psql", "PG", "PostgresSQL", "pgSQL"]
+    "aliases": [
+      "Postgres",
+      "psql",
+      "PG",
+      "PostgresSQL",
+      "pgSQL"
+    ]
   },
   {
     "name": "MySQL",
     "category": "database",
-    "aliases": ["my-sql", "mySQL"]
+    "aliases": [
+      "my-sql",
+      "mySQL"
+    ]
   },
   {
     "name": "MongoDB",
     "category": "database",
-    "aliases": ["Mongo", "mongo", "MongoDB Atlas"]
+    "aliases": [
+      "Mongo",
+      "mongo",
+      "MongoDB Atlas"
+    ]
   },
   {
     "name": "Redis",
     "category": "database",
-    "aliases": ["Redis Cache", "Redis DB", "redis"]
+    "aliases": [
+      "Redis Cache",
+      "Redis DB",
+      "redis"
+    ]
   },
   {
     "name": "SQLite",
     "category": "database",
-    "aliases": ["sqlite3", "sqlite"]
+    "aliases": [
+      "sqlite3",
+      "sqlite"
+    ]
   },
   {
     "name": "DynamoDB",
     "category": "database",
-    "aliases": ["Dynamo DB", "AWS DynamoDB", "Amazon DynamoDB"]
+    "aliases": [
+      "Dynamo DB",
+      "AWS DynamoDB",
+      "Amazon DynamoDB"
+    ]
   },
   {
     "name": "Cassandra",
     "category": "database",
-    "aliases": ["Apache Cassandra", "CQL"]
+    "aliases": [
+      "Apache Cassandra",
+      "CQL"
+    ]
   },
   {
     "name": "Elasticsearch",
     "category": "database",
-    "aliases": ["ES", "Elastic Search", "ELK", "Elastic", "OpenSearch"]
+    "aliases": [
+      "ES",
+      "Elastic Search",
+      "ELK",
+      "Elastic",
+      "OpenSearch"
+    ]
   },
   {
     "name": "Neo4j",
     "category": "database",
-    "aliases": ["neo4j", "Neo4J", "Cypher"]
+    "aliases": [
+      "neo4j",
+      "Neo4J",
+      "Cypher"
+    ]
   },
   {
     "name": "CouchDB",
     "category": "database",
-    "aliases": ["Apache CouchDB", "Couch DB"]
+    "aliases": [
+      "Apache CouchDB",
+      "Couch DB"
+    ]
   },
   {
     "name": "MariaDB",
     "category": "database",
-    "aliases": ["Maria DB", "mariadb"]
+    "aliases": [
+      "Maria DB",
+      "mariadb"
+    ]
   },
   {
     "name": "Oracle",
     "category": "database",
-    "aliases": ["Oracle DB", "Oracle Database", "OracleDB", "Oracle SQL"]
+    "aliases": [
+      "Oracle DB",
+      "Oracle Database",
+      "OracleDB",
+      "Oracle SQL"
+    ]
   },
   {
     "name": "SQL Server",
     "category": "database",
-    "aliases": ["MSSQL", "MS SQL", "Microsoft SQL Server", "SQL Server 2019", "SQL Server 2022", "SSMS"]
+    "aliases": [
+      "MSSQL",
+      "MS SQL",
+      "Microsoft SQL Server",
+      "SQL Server 2019",
+      "SQL Server 2022",
+      "SSMS"
+    ]
   },
   {
     "name": "Supabase",
     "category": "database",
-    "aliases": ["supabase"]
+    "aliases": [
+      "supabase"
+    ]
   },
   {
     "name": "Firebase",
     "category": "database",
-    "aliases": ["Google Firebase", "Firestore", "Firebase Realtime Database", "RTDB"]
+    "aliases": [
+      "Google Firebase",
+      "Firestore",
+      "Firebase Realtime Database",
+      "RTDB"
+    ]
   },
   {
     "name": "AWS",
     "category": "cloud",
-    "aliases": ["Amazon Web Services", "aws"]
+    "aliases": [
+      "Amazon Web Services",
+      "aws"
+    ]
   },
   {
     "name": "Azure",
     "category": "cloud",
-    "aliases": ["Microsoft Azure", "Azure Cloud", "MS Azure"]
+    "aliases": [
+      "Microsoft Azure",
+      "Azure Cloud",
+      "MS Azure"
+    ]
   },
   {
     "name": "GCP",
     "category": "cloud",
-    "aliases": ["Google Cloud", "Google Cloud Platform", "gcloud"]
+    "aliases": [
+      "Google Cloud",
+      "Google Cloud Platform",
+      "gcloud"
+    ]
   },
   {
     "name": "Docker",
     "category": "cloud",
-    "aliases": ["docker", "Docker containers", "Dockerfile", "Docker Compose", "docker-compose"]
+    "aliases": [
+      "docker",
+      "Docker containers",
+      "Dockerfile",
+      "Docker Compose",
+      "docker-compose"
+    ]
   },
   {
     "name": "Kubernetes",
     "category": "cloud",
-    "aliases": ["K8s", "k8s", "kube", "kubectl", "EKS", "AKS", "GKE"]
+    "aliases": [
+      "K8s",
+      "k8s",
+      "kube",
+      "kubectl",
+      "EKS",
+      "AKS",
+      "GKE"
+    ]
   },
   {
     "name": "Terraform",
     "category": "cloud",
-    "aliases": ["TF", "HashiCorp Terraform", "terraform", "HCL"]
+    "aliases": [
+      "TF",
+      "HashiCorp Terraform",
+      "terraform",
+      "HCL"
+    ]
   },
   {
     "name": "Ansible",
     "category": "cloud",
-    "aliases": ["ansible", "Ansible Playbook", "Ansible Tower", "Red Hat Ansible"]
+    "aliases": [
+      "ansible",
+      "Ansible Playbook",
+      "Ansible Tower",
+      "Red Hat Ansible"
+    ]
   },
   {
     "name": "CloudFormation",
     "category": "cloud",
-    "aliases": ["AWS CloudFormation", "CFN", "Cloud Formation"]
+    "aliases": [
+      "AWS CloudFormation",
+      "CFN",
+      "Cloud Formation"
+    ]
   },
   {
     "name": "Serverless",
     "category": "cloud",
-    "aliases": ["Serverless Framework", "serverless", "FaaS", "Function as a Service"]
+    "aliases": [
+      "Serverless Framework",
+      "serverless",
+      "FaaS",
+      "Function as a Service"
+    ]
   },
   {
     "name": "AWS Lambda",
     "category": "cloud",
-    "aliases": ["Lambda", "lambda functions", "Lambda Functions"]
+    "aliases": [
+      "Lambda",
+      "lambda functions",
+      "Lambda Functions"
+    ]
   },
   {
     "name": "Amazon S3",
     "category": "cloud",
-    "aliases": ["S3", "AWS S3", "Simple Storage Service"]
+    "aliases": [
+      "S3",
+      "AWS S3",
+      "Simple Storage Service"
+    ]
   },
   {
     "name": "Amazon EC2",
     "category": "cloud",
-    "aliases": ["EC2", "AWS EC2", "Elastic Compute Cloud"]
+    "aliases": [
+      "EC2",
+      "AWS EC2",
+      "Elastic Compute Cloud"
+    ]
   },
   {
     "name": "Vercel",
     "category": "cloud",
-    "aliases": ["vercel", "Zeit"]
+    "aliases": [
+      "vercel",
+      "Zeit"
+    ]
   },
   {
     "name": "Netlify",
     "category": "cloud",
-    "aliases": ["netlify"]
+    "aliases": [
+      "netlify"
+    ]
   },
   {
     "name": "Cloudflare",
     "category": "cloud",
-    "aliases": ["CF", "Cloudflare Workers", "Cloudflare Pages"]
+    "aliases": [
+      "CF",
+      "Cloudflare Workers",
+      "Cloudflare Pages"
+    ]
   },
   {
     "name": "Git",
     "category": "tool",
-    "aliases": ["git", "Version Control", "VCS", "source control"]
+    "aliases": [
+      "git",
+      "Version Control",
+      "VCS",
+      "source control"
+    ]
   },
   {
     "name": "GitHub",
     "category": "tool",
-    "aliases": ["github", "GH", "Github"]
+    "aliases": [
+      "github",
+      "GH",
+      "Github"
+    ]
   },
   {
     "name": "GitLab",
     "category": "tool",
-    "aliases": ["gitlab", "Gitlab"]
+    "aliases": [
+      "gitlab",
+      "Gitlab"
+    ]
   },
   {
     "name": "Bitbucket",
     "category": "tool",
-    "aliases": ["bitbucket", "Atlassian Bitbucket"]
+    "aliases": [
+      "bitbucket",
+      "Atlassian Bitbucket"
+    ]
   },
   {
     "name": "Jenkins",
     "category": "tool",
-    "aliases": ["jenkins", "Jenkins CI", "Jenkins Pipeline"]
+    "aliases": [
+      "jenkins",
+      "Jenkins CI",
+      "Jenkins Pipeline"
+    ]
   },
   {
     "name": "CircleCI",
     "category": "tool",
-    "aliases": ["Circle CI", "circleci"]
+    "aliases": [
+      "Circle CI",
+      "circleci"
+    ]
   },
   {
     "name": "GitHub Actions",
     "category": "tool",
-    "aliases": ["GH Actions", "Github Actions", "github actions"]
+    "aliases": [
+      "GH Actions",
+      "Github Actions",
+      "github actions"
+    ]
   },
   {
     "name": "Jira",
     "category": "tool",
-    "aliases": ["JIRA", "Atlassian Jira", "jira"]
+    "aliases": [
+      "JIRA",
+      "Atlassian Jira",
+      "jira"
+    ]
   },
   {
     "name": "Confluence",
     "category": "tool",
-    "aliases": ["Atlassian Confluence", "confluence"]
+    "aliases": [
+      "Atlassian Confluence",
+      "confluence"
+    ]
   },
   {
     "name": "Figma",
     "category": "tool",
-    "aliases": ["figma"]
+    "aliases": [
+      "figma"
+    ]
   },
   {
     "name": "Webpack",
     "category": "tool",
-    "aliases": ["webpack", "Webpack 5"]
+    "aliases": [
+      "webpack",
+      "Webpack 5"
+    ]
   },
   {
     "name": "Vite",
     "category": "tool",
-    "aliases": ["vite", "ViteJS", "Vite.js"]
+    "aliases": [
+      "vite",
+      "ViteJS",
+      "Vite.js"
+    ]
   },
   {
     "name": "ESLint",
     "category": "tool",
-    "aliases": ["eslint", "ES Lint"]
+    "aliases": [
+      "eslint",
+      "ES Lint"
+    ]
   },
   {
     "name": "Prettier",
     "category": "tool",
-    "aliases": ["prettier"]
+    "aliases": [
+      "prettier"
+    ]
   },
   {
     "name": "Grafana",
     "category": "tool",
-    "aliases": ["grafana"]
+    "aliases": [
+      "grafana"
+    ]
   },
   {
     "name": "Prometheus",
     "category": "tool",
-    "aliases": ["prometheus", "PromQL"]
+    "aliases": [
+      "prometheus",
+      "PromQL"
+    ]
   },
   {
     "name": "Datadog",
     "category": "tool",
-    "aliases": ["DataDog", "datadog", "DD"]
+    "aliases": [
+      "DataDog",
+      "datadog",
+      "DD"
+    ]
   },
   {
     "name": "New Relic",
     "category": "tool",
-    "aliases": ["NewRelic", "new relic", "NRQL"]
+    "aliases": [
+      "NewRelic",
+      "new relic",
+      "NRQL"
+    ]
   },
   {
     "name": "Sentry",
     "category": "tool",
-    "aliases": ["sentry", "Sentry.io"]
+    "aliases": [
+      "sentry",
+      "Sentry.io"
+    ]
   },
   {
     "name": "Nginx",
     "category": "tool",
-    "aliases": ["NGINX", "nginx", "engine-x"]
+    "aliases": [
+      "NGINX",
+      "nginx",
+      "engine-x"
+    ]
   },
   {
     "name": "Apache",
     "category": "tool",
-    "aliases": ["Apache HTTP", "Apache HTTP Server", "httpd", "Apache2"]
+    "aliases": [
+      "Apache HTTP",
+      "Apache HTTP Server",
+      "httpd",
+      "Apache2"
+    ]
   },
   {
     "name": "Linux",
     "category": "tool",
-    "aliases": ["linux", "Ubuntu", "CentOS", "Debian", "RHEL", "Red Hat", "Fedora", "SUSE"]
+    "aliases": [
+      "linux",
+      "Ubuntu",
+      "CentOS",
+      "Debian",
+      "RHEL",
+      "Red Hat",
+      "Fedora",
+      "SUSE"
+    ]
   },
   {
     "name": "REST API",
     "category": "tool",
-    "aliases": ["REST", "RESTful", "RESTful API", "REST APIs", "RESTful services"]
+    "aliases": [
+      "REST",
+      "RESTful",
+      "RESTful API",
+      "REST APIs",
+      "RESTful services"
+    ]
   },
   {
     "name": "GraphQL",
     "category": "tool",
-    "aliases": ["graphql", "Graph QL", "Apollo GraphQL"]
+    "aliases": [
+      "graphql",
+      "Graph QL",
+      "Apollo GraphQL"
+    ]
   },
   {
     "name": "gRPC",
     "category": "tool",
-    "aliases": ["GRPC", "grpc", "Google RPC"]
+    "aliases": [
+      "GRPC",
+      "grpc",
+      "Google RPC"
+    ]
   },
   {
     "name": "OpenAPI",
     "category": "tool",
-    "aliases": ["Open API", "OAS", "OpenAPI Specification", "OpenAPI 3.0"]
+    "aliases": [
+      "Open API",
+      "OAS",
+      "OpenAPI Specification",
+      "OpenAPI 3.0"
+    ]
   },
   {
     "name": "Swagger",
     "category": "tool",
-    "aliases": ["swagger", "Swagger UI", "SwaggerHub"]
+    "aliases": [
+      "swagger",
+      "Swagger UI",
+      "SwaggerHub"
+    ]
   },
   {
     "name": "Postman",
     "category": "tool",
-    "aliases": ["postman"]
+    "aliases": [
+      "postman"
+    ]
   },
   {
     "name": "VS Code",
     "category": "tool",
-    "aliases": ["Visual Studio Code", "VSCode", "vscode"]
+    "aliases": [
+      "Visual Studio Code",
+      "VSCode",
+      "vscode"
+    ]
   },
   {
     "name": "IntelliJ",
     "category": "tool",
-    "aliases": ["IntelliJ IDEA", "JetBrains IntelliJ", "IDEA"]
+    "aliases": [
+      "IntelliJ IDEA",
+      "JetBrains IntelliJ",
+      "IDEA"
+    ]
   },
   {
     "name": "Agile",
     "category": "methodology",
-    "aliases": ["agile methodology", "Agile development", "Agile software development"]
+    "aliases": [
+      "agile methodology",
+      "Agile development",
+      "Agile software development"
+    ]
   },
   {
     "name": "Scrum",
     "category": "methodology",
-    "aliases": ["scrum", "Scrum methodology", "Scrum Master"]
+    "aliases": [
+      "scrum",
+      "Scrum methodology",
+      "Scrum Master"
+    ]
   },
   {
     "name": "Kanban",
     "category": "methodology",
-    "aliases": ["kanban", "Kanban board"]
+    "aliases": [
+      "kanban",
+      "Kanban board"
+    ]
   },
   {
     "name": "CI/CD",
     "category": "methodology",
-    "aliases": ["CI CD", "CICD", "continuous integration", "continuous deployment", "continuous delivery", "CI pipeline", "CD pipeline"]
+    "aliases": [
+      "CI CD",
+      "CICD",
+      "continuous integration",
+      "continuous deployment",
+      "continuous delivery",
+      "CI pipeline",
+      "CD pipeline"
+    ]
   },
   {
     "name": "TDD",
     "category": "methodology",
-    "aliases": ["Test Driven Development", "Test-Driven Development", "test driven development"]
+    "aliases": [
+      "Test Driven Development",
+      "Test-Driven Development",
+      "test driven development"
+    ]
   },
   {
     "name": "BDD",
     "category": "methodology",
-    "aliases": ["Behavior Driven Development", "Behavior-Driven Development", "behavior driven development"]
+    "aliases": [
+      "Behavior Driven Development",
+      "Behavior-Driven Development",
+      "behavior driven development"
+    ]
   },
   {
     "name": "DevOps",
     "category": "methodology",
-    "aliases": ["devops", "Dev Ops", "DevSecOps"]
+    "aliases": [
+      "devops",
+      "Dev Ops",
+      "DevSecOps"
+    ]
   },
   {
     "name": "Microservices",
     "category": "methodology",
-    "aliases": ["Microservice", "microservices architecture", "micro services", "MSA"]
+    "aliases": [
+      "Microservice",
+      "microservices architecture",
+      "micro services",
+      "MSA"
+    ]
   },
   {
     "name": "Monorepo",
     "category": "methodology",
-    "aliases": ["mono repo", "mono-repo", "monorepo"]
+    "aliases": [
+      "mono repo",
+      "mono-repo",
+      "monorepo"
+    ]
   },
   {
     "name": "Pair Programming",
     "category": "methodology",
-    "aliases": ["pair programming", "pairing", "mob programming"]
+    "aliases": [
+      "pair programming",
+      "pairing",
+      "mob programming"
+    ]
   },
   {
     "name": "Code Review",
     "category": "methodology",
-    "aliases": ["code review", "peer review", "PR review", "pull request review"]
+    "aliases": [
+      "code review",
+      "peer review",
+      "PR review",
+      "pull request review"
+    ]
   },
   {
     "name": "A/B Testing",
     "category": "methodology",
-    "aliases": ["AB Testing", "A-B Testing", "split testing", "experimentation"]
+    "aliases": [
+      "AB Testing",
+      "A-B Testing",
+      "split testing",
+      "experimentation"
+    ]
   },
   {
     "name": "Infrastructure as Code",
     "category": "methodology",
-    "aliases": ["IaC", "IAC", "infra as code"]
+    "aliases": [
+      "IaC",
+      "IAC",
+      "infra as code"
+    ]
   },
   {
     "name": "GitOps",
     "category": "methodology",
-    "aliases": ["gitops", "Git Ops"]
+    "aliases": [
+      "gitops",
+      "Git Ops"
+    ]
   },
   {
     "name": "SRE",
     "category": "methodology",
-    "aliases": ["Site Reliability Engineering", "site reliability", "Site Reliability Engineer"]
+    "aliases": [
+      "Site Reliability Engineering",
+      "site reliability",
+      "Site Reliability Engineer"
+    ]
   },
   {
     "name": "Leadership",
     "category": "soft_skill",
-    "aliases": ["team leadership", "tech lead", "technical leadership", "people management"]
+    "aliases": [
+      "team leadership",
+      "tech lead",
+      "technical leadership",
+      "people management"
+    ]
   },
   {
     "name": "Communication",
     "category": "soft_skill",
-    "aliases": ["communication skills", "verbal communication", "written communication", "interpersonal skills"]
+    "aliases": [
+      "communication skills",
+      "verbal communication",
+      "written communication",
+      "interpersonal skills"
+    ]
   },
   {
     "name": "Problem Solving",
     "category": "soft_skill",
-    "aliases": ["problem-solving", "analytical thinking", "troubleshooting", "debugging skills"]
+    "aliases": [
+      "problem-solving",
+      "analytical thinking",
+      "troubleshooting",
+      "debugging skills"
+    ]
   },
   {
     "name": "Teamwork",
     "category": "soft_skill",
-    "aliases": ["collaboration", "team player", "cross-functional collaboration", "team collaboration"]
+    "aliases": [
+      "collaboration",
+      "team player",
+      "cross-functional collaboration",
+      "team collaboration"
+    ]
   },
   {
     "name": "Mentoring",
     "category": "soft_skill",
-    "aliases": ["mentorship", "coaching", "training", "knowledge sharing"]
+    "aliases": [
+      "mentorship",
+      "coaching",
+      "training",
+      "knowledge sharing"
+    ]
   },
   {
     "name": "Project Management",
     "category": "soft_skill",
-    "aliases": ["PM", "project planning", "program management", "delivery management"]
+    "aliases": [
+      "PM",
+      "project planning",
+      "program management",
+      "delivery management"
+    ]
   },
   {
     "name": "Time Management",
     "category": "soft_skill",
-    "aliases": ["time-management", "prioritization", "deadline management"]
+    "aliases": [
+      "time-management",
+      "prioritization",
+      "deadline management"
+    ]
   },
   {
     "name": "Critical Thinking",
     "category": "soft_skill",
-    "aliases": ["critical-thinking", "analytical skills", "strategic thinking"]
+    "aliases": [
+      "critical-thinking",
+      "analytical skills",
+      "strategic thinking"
+    ]
   },
   {
     "name": "Stakeholder Management",
     "category": "soft_skill",
-    "aliases": ["stakeholder communication", "client management", "client relations", "stakeholder engagement"]
+    "aliases": [
+      "stakeholder communication",
+      "client management",
+      "client relations",
+      "stakeholder engagement"
+    ]
   },
   {
     "name": "Technical Writing",
     "category": "soft_skill",
-    "aliases": ["tech writing", "documentation", "technical documentation", "API documentation"]
+    "aliases": [
+      "tech writing",
+      "documentation",
+      "technical documentation",
+      "API documentation"
+    ]
   },
   {
     "name": "C",
     "category": "language",
-    "aliases": ["C language", "ANSI C", "C99", "C11"]
+    "aliases": [
+      "C language",
+      "ANSI C",
+      "C99",
+      "C11"
+    ]
   },
   {
     "name": "F#",
     "category": "language",
-    "aliases": ["FSharp", "F Sharp", "fsharp"]
+    "aliases": [
+      "FSharp",
+      "F Sharp",
+      "fsharp"
+    ]
   },
   {
     "name": "Clojure",
     "category": "language",
-    "aliases": ["ClojureScript", "clj", "cljs"]
+    "aliases": [
+      "ClojureScript",
+      "clj",
+      "cljs"
+    ]
   },
   {
     "name": "Groovy",
     "category": "language",
-    "aliases": ["Apache Groovy"]
+    "aliases": [
+      "Apache Groovy"
+    ]
   },
   {
     "name": "YAML",
     "category": "language",
-    "aliases": ["yml", "YAML Ain't Markup Language"]
+    "aliases": [
+      "yml",
+      "YAML Ain't Markup Language"
+    ]
   },
   {
     "name": "GraphQL Schema",
     "category": "language",
-    "aliases": ["SDL", "GraphQL SDL", "schema definition language"]
+    "aliases": [
+      "SDL",
+      "GraphQL SDL",
+      "schema definition language"
+    ]
   },
   {
     "name": "WebAssembly",
     "category": "language",
-    "aliases": ["WASM", "wasm", "Web Assembly"]
+    "aliases": [
+      "WASM",
+      "wasm",
+      "Web Assembly"
+    ]
   },
   {
     "name": "Spring Security",
     "category": "framework",
-    "aliases": ["Spring Auth", "spring-security"]
+    "aliases": [
+      "Spring Auth",
+      "spring-security"
+    ]
   },
   {
     "name": "Hibernate",
     "category": "framework",
-    "aliases": ["JPA", "Java Persistence API", "hibernate"]
+    "aliases": [
+      "JPA",
+      "Java Persistence API",
+      "hibernate"
+    ]
   },
   {
     "name": "Entity Framework",
     "category": "framework",
-    "aliases": ["EF", "EF Core", "Entity Framework Core"]
+    "aliases": [
+      "EF",
+      "EF Core",
+      "Entity Framework Core"
+    ]
   },
   {
     "name": "Celery",
     "category": "framework",
-    "aliases": ["celery", "Celery task queue"]
+    "aliases": [
+      "celery",
+      "Celery task queue"
+    ]
   },
   {
     "name": "Airflow",
     "category": "framework",
-    "aliases": ["Apache Airflow", "airflow"]
+    "aliases": [
+      "Apache Airflow",
+      "airflow"
+    ]
   },
   {
     "name": "Keras",
     "category": "framework",
-    "aliases": ["keras", "tf.keras"]
+    "aliases": [
+      "keras",
+      "tf.keras"
+    ]
   },
   {
     "name": "OpenCV",
     "category": "framework",
-    "aliases": ["cv2", "Open CV", "opencv"]
+    "aliases": [
+      "cv2",
+      "Open CV",
+      "opencv"
+    ]
   },
   {
     "name": "Three.js",
     "category": "framework",
-    "aliases": ["ThreeJS", "three.js", "threejs"]
+    "aliases": [
+      "ThreeJS",
+      "three.js",
+      "threejs"
+    ]
   },
   {
     "name": "D3.js",
     "category": "framework",
-    "aliases": ["D3", "d3js", "d3.js"]
+    "aliases": [
+      "D3",
+      "d3js",
+      "d3.js"
+    ]
   },
   {
     "name": "Material UI",
     "category": "framework",
-    "aliases": ["MUI", "Material-UI", "mui"]
+    "aliases": [
+      "MUI",
+      "Material-UI",
+      "mui"
+    ]
   },
   {
     "name": "Storybook",
     "category": "framework",
-    "aliases": ["storybook", "StorybookJS"]
+    "aliases": [
+      "storybook",
+      "StorybookJS"
+    ]
   },
   {
     "name": "InfluxDB",
     "category": "database",
-    "aliases": ["Influx DB", "InfluxData"]
+    "aliases": [
+      "Influx DB",
+      "InfluxData"
+    ]
   },
   {
     "name": "Snowflake",
     "category": "database",
-    "aliases": ["Snowflake DB", "Snowflake Data Cloud"]
+    "aliases": [
+      "Snowflake DB",
+      "Snowflake Data Cloud"
+    ]
   },
   {
     "name": "BigQuery",
     "category": "database",
-    "aliases": ["Google BigQuery", "BQ"]
+    "aliases": [
+      "Google BigQuery",
+      "BQ"
+    ]
   },
   {
     "name": "Redshift",
     "category": "database",
-    "aliases": ["Amazon Redshift", "AWS Redshift"]
+    "aliases": [
+      "Amazon Redshift",
+      "AWS Redshift"
+    ]
   },
   {
     "name": "Pulumi",
     "category": "cloud",
-    "aliases": ["pulumi"]
+    "aliases": [
+      "pulumi"
+    ]
   },
   {
     "name": "Helm",
     "category": "cloud",
-    "aliases": ["Helm charts", "helm", "Kubernetes Helm"]
+    "aliases": [
+      "Helm charts",
+      "helm",
+      "Kubernetes Helm"
+    ]
   },
   {
     "name": "AWS CDK",
     "category": "cloud",
-    "aliases": ["CDK", "Cloud Development Kit"]
+    "aliases": [
+      "CDK",
+      "Cloud Development Kit"
+    ]
   },
   {
     "name": "ArgoCD",
     "category": "cloud",
-    "aliases": ["Argo CD", "argocd", "Argo"]
+    "aliases": [
+      "Argo CD",
+      "argocd",
+      "Argo"
+    ]
   },
   {
     "name": "Vault",
     "category": "cloud",
-    "aliases": ["HashiCorp Vault", "hashi vault"]
+    "aliases": [
+      "HashiCorp Vault",
+      "hashi vault"
+    ]
   },
   {
     "name": "Terraform Cloud",
     "category": "cloud",
-    "aliases": ["TFC", "Terraform Enterprise"]
+    "aliases": [
+      "TFC",
+      "Terraform Enterprise"
+    ]
   },
   {
     "name": "Slack",
     "category": "tool",
-    "aliases": ["slack", "Slack API"]
+    "aliases": [
+      "slack",
+      "Slack API"
+    ]
   },
   {
     "name": "Notion",
     "category": "tool",
-    "aliases": ["notion"]
+    "aliases": [
+      "notion"
+    ]
   },
   {
     "name": "SonarQube",
     "category": "tool",
-    "aliases": ["Sonar", "sonarqube", "SonarCloud"]
+    "aliases": [
+      "Sonar",
+      "sonarqube",
+      "SonarCloud"
+    ]
   },
   {
     "name": "Travis CI",
     "category": "tool",
-    "aliases": ["TravisCI", "travis-ci"]
+    "aliases": [
+      "TravisCI",
+      "travis-ci"
+    ]
   },
   {
     "name": "Azure DevOps",
     "category": "tool",
-    "aliases": ["ADO", "Azure Pipelines", "VSTS", "TFS", "Team Foundation Server"]
+    "aliases": [
+      "ADO",
+      "Azure Pipelines",
+      "VSTS",
+      "TFS",
+      "Team Foundation Server"
+    ]
   },
   {
     "name": "Selenium",
     "category": "tool",
-    "aliases": ["selenium", "Selenium WebDriver"]
+    "aliases": [
+      "selenium",
+      "Selenium WebDriver"
+    ]
   },
   {
     "name": "Cypress",
     "category": "tool",
-    "aliases": ["cypress", "Cypress.io"]
+    "aliases": [
+      "cypress",
+      "Cypress.io"
+    ]
   },
   {
     "name": "Playwright",
     "category": "tool",
-    "aliases": ["playwright", "Microsoft Playwright"]
+    "aliases": [
+      "playwright",
+      "Microsoft Playwright"
+    ]
   },
   {
     "name": "Jest",
     "category": "tool",
-    "aliases": ["jest", "JestJS"]
+    "aliases": [
+      "jest",
+      "JestJS"
+    ]
   },
   {
     "name": "Mocha",
     "category": "tool",
-    "aliases": ["mocha", "MochaJS"]
+    "aliases": [
+      "mocha",
+      "MochaJS"
+    ]
   },
   {
     "name": "PyTest",
     "category": "tool",
-    "aliases": ["pytest", "py.test"]
+    "aliases": [
+      "pytest",
+      "py.test"
+    ]
   },
   {
     "name": "JUnit",
     "category": "tool",
-    "aliases": ["junit", "JUnit 5", "JUnit 4"]
+    "aliases": [
+      "junit",
+      "JUnit 5",
+      "JUnit 4"
+    ]
   },
   {
     "name": "RSpec",
     "category": "tool",
-    "aliases": ["rspec"]
+    "aliases": [
+      "rspec"
+    ]
   },
   {
     "name": "SAFe",
     "category": "methodology",
-    "aliases": ["Scaled Agile Framework", "Scaled Agile", "SAFe Agile"]
+    "aliases": [
+      "Scaled Agile Framework",
+      "Scaled Agile",
+      "SAFe Agile"
+    ]
   },
   {
     "name": "Design Patterns",
     "category": "methodology",
-    "aliases": ["software design patterns", "GoF patterns", "SOLID", "SOLID principles"]
+    "aliases": [
+      "software design patterns",
+      "GoF patterns",
+      "SOLID",
+      "SOLID principles"
+    ]
   },
   {
     "name": "Domain-Driven Design",
     "category": "methodology",
-    "aliases": ["DDD", "domain driven design"]
+    "aliases": [
+      "DDD",
+      "domain driven design"
+    ]
   },
   {
     "name": "Event-Driven Architecture",
     "category": "methodology",
-    "aliases": ["EDA", "event driven", "event sourcing", "CQRS"]
+    "aliases": [
+      "EDA",
+      "event driven",
+      "event sourcing",
+      "CQRS"
+    ]
   },
   {
     "name": "Adaptability",
     "category": "soft_skill",
-    "aliases": ["flexibility", "adaptable", "fast learner", "quick learner"]
+    "aliases": [
+      "flexibility",
+      "adaptable",
+      "fast learner",
+      "quick learner"
+    ]
   },
   {
     "name": "Presentation Skills",
     "category": "soft_skill",
-    "aliases": ["public speaking", "presenting", "demo skills"]
+    "aliases": [
+      "public speaking",
+      "presenting",
+      "demo skills"
+    ]
+  },
+  {
+    "name": "Roslyn",
+    "category": "tool",
+    "aliases": [
+      "Roslyn Analyzer",
+      "Roslyn Analyzers",
+      ".NET Analyzers",
+      "Code Analyzers"
+    ]
+  },
+  {
+    "name": "Semantic Kernel",
+    "category": "framework",
+    "aliases": [
+      "Microsoft Semantic Kernel",
+      "SK"
+    ]
+  },
+  {
+    "name": "ML.NET",
+    "category": "framework",
+    "aliases": [
+      "MLNET"
+    ]
+  },
+  {
+    "name": "Azure Functions",
+    "category": "cloud",
+    "aliases": [
+      "Azure Function"
+    ]
+  },
+  {
+    "name": "Azure Service Bus",
+    "category": "cloud",
+    "aliases": [
+      "Service Bus"
+    ]
+  },
+  {
+    "name": "Azure Cosmos DB",
+    "category": "database",
+    "aliases": [
+      "Cosmos DB",
+      "CosmosDB"
+    ]
+  },
+  {
+    "name": "Azure AD",
+    "category": "cloud",
+    "aliases": [
+      "Azure Active Directory",
+      "Entra ID",
+      "Azure AD B2C"
+    ]
+  },
+  {
+    "name": "SignalR",
+    "category": "framework",
+    "aliases": [
+      "ASP.NET SignalR"
+    ]
+  },
+  {
+    "name": "Dapr",
+    "category": "framework",
+    "aliases": []
+  },
+  {
+    "name": ".NET Aspire",
+    "category": "framework",
+    "aliases": [
+      "Aspire"
+    ]
+  },
+  {
+    "name": "Bicep",
+    "category": "cloud",
+    "aliases": [
+      "Azure Bicep"
+    ]
+  },
+  {
+    "name": "CQRS",
+    "category": "methodology",
+    "aliases": [
+      "Command Query Responsibility Segregation"
+    ]
+  },
+  {
+    "name": "AI Coding Tools",
+    "category": "tool",
+    "aliases": [
+      "GitHub Copilot",
+      "Copilot",
+      "AI-assisted development",
+      "AI pair programming",
+      "Claude Code",
+      "Cursor"
+    ]
+  },
+  {
+    "name": "LangChain",
+    "category": "framework",
+    "aliases": []
+  },
+  {
+    "name": "RAG",
+    "category": "methodology",
+    "aliases": [
+      "Retrieval Augmented Generation",
+      "Retrieval-Augmented Generation"
+    ]
+  },
+  {
+    "name": "Prompt Engineering",
+    "category": "methodology",
+    "aliases": [
+      "Prompt Design"
+    ]
+  },
+  {
+    "name": "Vector Database",
+    "category": "database",
+    "aliases": [
+      "pgvector",
+      "Pinecone",
+      "Weaviate",
+      "Milvus",
+      "ChromaDB"
+    ]
+  },
+  {
+    "name": "LLM",
+    "category": "methodology",
+    "aliases": [
+      "Large Language Model",
+      "Large Language Models",
+      "LLMs"
+    ]
+  },
+  {
+    "name": "MSBuild",
+    "category": "tool",
+    "aliases": [
+      "dotnet build"
+    ]
+  },
+  {
+    "name": "NuGet",
+    "category": "tool",
+    "aliases": [
+      "NuGet Package"
+    ]
+  },
+  {
+    "name": "xUnit",
+    "category": "tool",
+    "aliases": [
+      "xunit"
+    ]
+  },
+  {
+    "name": "Minimal API",
+    "category": "framework",
+    "aliases": [
+      "Minimal APIs",
+      "ASP.NET Minimal API"
+    ]
   }
 ]

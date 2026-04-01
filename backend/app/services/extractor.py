@@ -41,8 +41,11 @@ class SkillExtractor:
 
             # Build regex for names with special chars
             if any(c in name for c in ".+#/"):
+                escaped = re.escape(name)
+                # \b doesn't work well with special chars like +, #, .
+                # Use lookbehind for word boundary or start, lookahead for end
                 pattern = re.compile(
-                    r"\b" + re.escape(name) + r"\b",
+                    r"(?<![a-zA-Z0-9_])" + escaped + r"(?=\s|$|[^a-zA-Z0-9_+#.])",
                     re.IGNORECASE,
                 )
                 self._regex_patterns.append((pattern, name, category))
@@ -52,9 +55,36 @@ class SkillExtractor:
         results: dict[str, ExtractedSkill] = {}
         text_lower = text.lower()
 
-        # Pass 1: Exact match on skill names
+        # Track which positions in the text are already claimed by a match
+        claimed_positions: set[int] = set()
+
+        # Pass 1: Regex for special-character names FIRST (C++, .NET, Node.js, C#, F#)
+        # These must run before exact match to prevent "C" from claiming "C++"
+        for pattern, name, category in self._regex_patterns:
+            match = pattern.search(text)
+            if match:
+                start = max(0, match.start() - 40)
+                end = min(len(text), match.end() + 40)
+                ctx = text[start:end].strip()
+                results[name] = ExtractedSkill(
+                    name=name,
+                    category=category,
+                    context=ctx,
+                    match_type="regex",
+                )
+                # Claim the matched positions so shorter names don't re-match here
+                for i in range(match.start(), match.end()):
+                    claimed_positions.add(i)
+
+        # Pass 2: Exact match on skill names (skip if a longer special-char name already matched)
         for name_lower, skill in self._by_name.items():
-            if self._word_match(name_lower, text_lower):
+            if skill["name"] in results:
+                continue
+            match = re.search(r"\b" + re.escape(name_lower) + r"\b", text_lower)
+            if match:
+                # Check if this match overlaps with a claimed position
+                if any(i in claimed_positions for i in range(match.start(), match.end())):
+                    continue
                 ctx = self._get_context(name_lower, text_lower, text)
                 results[skill["name"]] = ExtractedSkill(
                     name=skill["name"],
@@ -63,7 +93,7 @@ class SkillExtractor:
                     match_type="exact",
                 )
 
-        # Pass 2: Alias resolution
+        # Pass 3: Alias resolution
         for alias_lower, canonical in self._alias_map.items():
             if canonical in results:
                 continue
@@ -75,22 +105,6 @@ class SkillExtractor:
                     category=skill["category"],
                     context=ctx,
                     match_type="alias",
-                )
-
-        # Pass 3: Regex for special-character names (C++, .NET, Node.js)
-        for pattern, name, category in self._regex_patterns:
-            if name in results:
-                continue
-            match = pattern.search(text)
-            if match:
-                start = max(0, match.start() - 40)
-                end = min(len(text), match.end() + 40)
-                ctx = text[start:end].strip()
-                results[name] = ExtractedSkill(
-                    name=name,
-                    category=category,
-                    context=ctx,
-                    match_type="regex",
                 )
 
         # Pass 4: Context detection — "X+ years of {skill}" patterns

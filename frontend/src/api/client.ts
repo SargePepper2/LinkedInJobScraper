@@ -32,98 +32,98 @@ async function request<T>(
   return res.json() as Promise<T>;
 }
 
-// --- Types ---
+// --- Types (matching actual backend responses) ---
 
-export interface Skill {
-  id: number;
+export interface SkillRanking {
   name: string;
   category: string;
-  frequency: number;
+  count: number;
   percentage: number;
-}
-
-export interface SkillRankingsResponse {
-  skills: Skill[];
-  total_jobs: number;
-  total_skills: number;
 }
 
 export interface CoOccurrence {
   skill_a: string;
   skill_b: string;
   count: number;
-  correlation: number;
 }
 
 export interface GapAnalysisResponse {
   match_percentage: number;
   matching_skills: string[];
-  missing_skills: string[];
-  recommendations: string[];
-  profile_skill_count: number;
-  market_skill_count: number;
+  missing_skills: { name: string; category: string; count: number; percentage: number }[];
+  undervalued_skills: string[];
+  high_value_skills: string[];
+  top_recommendations: string[];
 }
 
-export interface ProfileSuggestion {
-  headline_suggestions: string[];
+export interface ProfileSuggestionResponse {
+  headline_options: string[];
   missing_keywords: string[];
   trending_skills: string[];
-  optimization_score: number;
 }
 
-export interface Job {
+export interface JobResponse {
   id: number;
   title: string;
-  company: string;
-  skills: string[];
-  imported_at: string;
+  company: string | null;
+  location: string | null;
+  source: string;
+  skills_found: number;
 }
 
 export interface ImportJobPayload {
   title: string;
-  company: string;
+  company?: string;
   description: string;
 }
 
-export interface Profile {
+export interface ProfileResponse {
   id: number;
   name: string;
-  headline: string;
+  target_role: string | null;
+  headline: string | null;
   skills: string[];
 }
 
 export interface ProfilePayload {
   name: string;
-  headline: string;
-  skills: string[];
+  target_role?: string;
+  headline?: string;
+  summary?: string;
+  skill_names: string[];
 }
 
-// --- API functions ---
+// --- API functions (matching actual backend routes) ---
 
 export const api = {
-  getSkillRankings: (category?: string) =>
-    request<SkillRankingsResponse>(
-      `/skills/rankings${category ? `?category=${encodeURIComponent(category)}` : ""}`,
-    ),
+  // GET /api/skills/rankings?limit=50
+  getSkillRankings: (limit = 50) =>
+    request<SkillRanking[]>(`/skills/rankings?limit=${limit}`),
 
-  getCoOccurrences: (minCount = 2) =>
-    request<CoOccurrence[]>(`/skills/co-occurrences?min_count=${minCount}`),
+  // GET /api/skills/co-occurrence?min_count=3&limit=50
+  getCoOccurrences: (minCount = 3) =>
+    request<CoOccurrence[]>(`/skills/co-occurrence?min_count=${minCount}`),
 
+  // GET /api/analysis/gap/{profileId}
   getGapAnalysis: (profileId: number) =>
-    request<GapAnalysisResponse>(`/profiles/${profileId}/gap-analysis`),
+    request<GapAnalysisResponse>(`/analysis/gap/${profileId}`),
 
+  // GET /api/analysis/profile-suggestions/{profileId}
   getProfileSuggestions: (profileId: number) =>
-    request<ProfileSuggestion>(`/profiles/${profileId}/suggestions`),
+    request<ProfileSuggestionResponse>(`/analysis/profile-suggestions/${profileId}`),
 
+  // GET /api/jobs/?limit=50
   getJobs: (limit = 50) =>
-    request<Job[]>(`/jobs?limit=${limit}`),
+    request<JobResponse[]>(`/jobs/?skip=0&limit=${limit}`),
 
+  // POST /api/jobs/import/paste
   importJob: (payload: ImportJobPayload) =>
-    request<Job>("/jobs/import", {
+    request<JobResponse>("/jobs/import/paste", {
       method: "POST",
       body: JSON.stringify(payload),
     }),
 
+  // POST /api/jobs/import/csv
   importCsv: (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -134,18 +134,21 @@ export const api = {
     });
   },
 
+  // GET /api/profile/{profileId}
   getProfile: (profileId: number) =>
-    request<Profile>(`/profiles/${profileId}`),
+    request<ProfileResponse>(`/profile/${profileId}`),
 
+  // POST /api/profile/
   createProfile: (payload: ProfilePayload) =>
-    request<Profile>("/profiles", {
+    request<ProfileResponse>("/profile/", {
       method: "POST",
       body: JSON.stringify(payload),
     }),
 
-  updateProfile: (profileId: number, payload: ProfilePayload) =>
-    request<Profile>(`/profiles/${profileId}`, {
-      method: "PUT",
-      body: JSON.stringify(payload),
+  // POST /api/profile/{profileId}/skills
+  addSkills: (profileId: number, skillNames: string[]) =>
+    request<{ added: string[] }>(`/profile/${profileId}/skills`, {
+      method: "POST",
+      body: JSON.stringify({ skill_names: skillNames }),
     }),
 };

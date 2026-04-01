@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { TrendingUp, Briefcase, Layers, Target } from "lucide-react";
-import { useSkillRankings, useGapAnalysis } from "@/api/hooks";
+import { useSkillRankings, useJobs } from "../api/hooks";
 
 function StatCard({
   label,
@@ -38,9 +38,10 @@ function StatCard({
 
 export default function DashboardPage() {
   const { data: rankings, isLoading } = useSkillRankings();
-  const { data: gap } = useGapAnalysis(1);
+  const { data: jobs } = useJobs();
 
-  const topSkills = rankings?.skills.slice(0, 10) ?? [];
+  const topSkills = (rankings ?? []).slice(0, 10);
+  const uniqueSkills = new Set((rankings ?? []).map((r) => r.name)).size;
 
   return (
     <div className="space-y-8">
@@ -55,13 +56,13 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
           label="Total Jobs Tracked"
-          value={rankings?.total_jobs ?? "--"}
+          value={jobs?.length ?? "--"}
           icon={Briefcase}
           color="bg-indigo-600"
         />
         <StatCard
           label="Unique Skills"
-          value={rankings?.total_skills ?? "--"}
+          value={uniqueSkills || "--"}
           icon={Layers}
           color="bg-purple-600"
         />
@@ -72,8 +73,8 @@ export default function DashboardPage() {
           color="bg-blue-600"
         />
         <StatCard
-          label="Profile Match"
-          value={gap ? `${gap.match_percentage}%` : "--"}
+          label="Most In-Demand"
+          value={topSkills[0]?.name ?? "--"}
           icon={Target}
           color="bg-emerald-600"
         />
@@ -87,6 +88,10 @@ export default function DashboardPage() {
         {isLoading ? (
           <div className="flex h-80 items-center justify-center">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-500 border-t-transparent" />
+          </div>
+        ) : topSkills.length === 0 ? (
+          <div className="flex h-80 items-center justify-center text-gray-500">
+            No data yet. Import some job descriptions to get started.
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={360}>
@@ -122,10 +127,10 @@ export default function DashboardPage() {
                 }}
               />
               <Bar
-                dataKey="frequency"
+                dataKey="count"
                 fill="#6366f1"
                 radius={[0, 6, 6, 0]}
-                name="Mentions"
+                name="Job Mentions"
               />
             </BarChart>
           </ResponsiveContainer>

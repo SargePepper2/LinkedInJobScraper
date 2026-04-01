@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { User, Plus, X, Save, AlertCircle } from "lucide-react";
-import { useProfile, useUpdateProfile, useCreateProfile } from "@/api/hooks";
+import { useProfile, useCreateProfile } from "../api/hooks";
 
 const PROFILE_ID = 1;
 
 export default function ProfilePage() {
   const { data: profile, isLoading, error } = useProfile(PROFILE_ID);
-  const updateProfile = useUpdateProfile(PROFILE_ID);
   const createProfile = useCreateProfile();
 
   const [name, setName] = useState("");
-  const [headline, setHeadline] = useState("");
+  const [targetRole, setTargetRole] = useState("");
   const [skills, setSkills] = useState<string[]>([]);
   const [newSkill, setNewSkill] = useState("");
   const [initialized, setInitialized] = useState(false);
@@ -18,7 +17,7 @@ export default function ProfilePage() {
   // Sync form state when profile loads
   if (profile && !initialized) {
     setName(profile.name);
-    setHeadline(profile.headline);
+    setTargetRole(profile.target_role ?? "");
     setSkills(profile.skills);
     setInitialized(true);
   }
@@ -36,15 +35,14 @@ export default function ProfilePage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const payload = { name, headline, skills };
-    if (profile) {
-      updateProfile.mutate(payload);
-    } else {
-      createProfile.mutate(payload);
-    }
+    createProfile.mutate({
+      name,
+      target_role: targetRole || undefined,
+      skill_names: skills,
+    });
   }
 
-  const isSaving = updateProfile.isPending || createProfile.isPending;
+  const isSaving = createProfile.isPending;
 
   if (isLoading) {
     return (
@@ -73,7 +71,7 @@ export default function ProfilePage() {
           </div>
           <div>
             <h2 className="text-lg font-semibold text-white">
-              {profile ? "Edit Profile" : "Create Profile"}
+              {profile ? "Your Profile" : "Create Profile"}
             </h2>
             <p className="text-sm text-gray-400">
               Your skills will be compared against market demand
@@ -102,16 +100,16 @@ export default function ProfilePage() {
           />
         </div>
 
-        {/* Headline */}
+        {/* Target Role */}
         <div>
           <label className="mb-1.5 block text-sm font-medium text-gray-300">
-            Headline
+            Target Role
           </label>
           <input
             type="text"
-            value={headline}
-            onChange={(e) => setHeadline(e.target.value)}
-            placeholder="Senior Full-Stack Developer | React | Python"
+            value={targetRole}
+            onChange={(e) => setTargetRole(e.target.value)}
+            placeholder="Senior Full-Stack Developer"
             className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-2.5 text-sm text-gray-200 outline-none placeholder:text-gray-600 focus:border-indigo-500"
           />
         </div>
@@ -119,10 +117,9 @@ export default function ProfilePage() {
         {/* Skills */}
         <div>
           <label className="mb-1.5 block text-sm font-medium text-gray-300">
-            Skills
+            Your Skills
           </label>
 
-          {/* Skill chips */}
           <div className="mb-3 flex flex-wrap gap-2">
             {skills.map((skill) => (
               <span
@@ -144,7 +141,6 @@ export default function ProfilePage() {
             )}
           </div>
 
-          {/* Add skill input */}
           <div className="flex gap-2">
             <input
               type="text"
@@ -173,7 +169,7 @@ export default function ProfilePage() {
         {/* Submit */}
         <button
           type="submit"
-          disabled={isSaving}
+          disabled={isSaving || !!profile}
           className="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-indigo-500 disabled:opacity-50"
         >
           {isSaving ? (
@@ -181,12 +177,12 @@ export default function ProfilePage() {
           ) : (
             <Save className="h-4 w-4" />
           )}
-          {profile ? "Update Profile" : "Create Profile"}
+          {profile ? "Profile Saved" : "Create Profile"}
         </button>
 
-        {(updateProfile.isSuccess || createProfile.isSuccess) && (
+        {createProfile.isSuccess && (
           <p className="text-center text-sm text-green-400">
-            Profile saved successfully!
+            Profile created successfully!
           </p>
         )}
       </form>

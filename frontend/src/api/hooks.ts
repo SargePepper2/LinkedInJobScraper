@@ -1,14 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, type ImportJobPayload, type ProfilePayload } from "./client";
 
-export function useSkillRankings(category?: string) {
+export function useSkillRankings(limit = 50) {
   return useQuery({
-    queryKey: ["skill-rankings", category],
-    queryFn: () => api.getSkillRankings(category),
+    queryKey: ["skill-rankings", limit],
+    queryFn: () => api.getSkillRankings(limit),
   });
 }
 
-export function useCoOccurrences(minCount = 2) {
+export function useCoOccurrences(minCount = 3) {
   return useQuery({
     queryKey: ["co-occurrences", minCount],
     queryFn: () => api.getCoOccurrences(minCount),
@@ -19,6 +19,7 @@ export function useGapAnalysis(profileId: number) {
   return useQuery({
     queryKey: ["gap-analysis", profileId],
     queryFn: () => api.getGapAnalysis(profileId),
+    enabled: profileId > 0,
   });
 }
 
@@ -26,6 +27,7 @@ export function useProfileSuggestions(profileId: number) {
   return useQuery({
     queryKey: ["profile-suggestions", profileId],
     queryFn: () => api.getProfileSuggestions(profileId),
+    enabled: profileId > 0,
   });
 }
 
@@ -62,6 +64,7 @@ export function useProfile(profileId: number) {
   return useQuery({
     queryKey: ["profile", profileId],
     queryFn: () => api.getProfile(profileId),
+    enabled: profileId > 0,
   });
 }
 
@@ -71,19 +74,6 @@ export function useCreateProfile() {
     mutationFn: (payload: ProfilePayload) => api.createProfile(payload),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["profile"] });
-    },
-  });
-}
-
-export function useUpdateProfile(profileId: number) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (payload: ProfilePayload) =>
-      api.updateProfile(profileId, payload),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["profile", profileId] });
-      void queryClient.invalidateQueries({ queryKey: ["gap-analysis"] });
-      void queryClient.invalidateQueries({ queryKey: ["profile-suggestions"] });
     },
   });
 }

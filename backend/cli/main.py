@@ -1,10 +1,10 @@
-"""CLI interface for the job skills analyzer."""
+"""CLI interface for SkillScope."""
 
 import typer
 from rich.console import Console
 from rich.table import Table
 
-app = typer.Typer(name="jobscan", help="LinkedIn Job Skills Analyzer CLI")
+app = typer.Typer(name="jobscan", help="SkillScope CLI — career intelligence from job postings")
 console = Console()
 
 

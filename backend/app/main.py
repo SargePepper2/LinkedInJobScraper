@@ -5,8 +5,8 @@ from app.config import settings
 from app.routers import analysis, jobs, profile, scrape, skills
 
 app = FastAPI(
-    title="LinkedIn Job Skills Analyzer",
-    description="Scrape job postings, extract skills, and get career intelligence",
+    title="SkillScope",
+    description="Scrape job postings, extract in-demand skills, and get career intelligence",
     version="0.1.0",
 )
 

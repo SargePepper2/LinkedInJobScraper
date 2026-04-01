@@ -1,4 +1,4 @@
-# LinkedIn Job Skills Analyzer
+# SkillScope
 
 Scrape job postings, extract in-demand skills, and get personalized career intelligence.
 

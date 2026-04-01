@@ -1,5 +1,5 @@
 [project]
-name = "linkedin-job-scraper"
+name = "skillscope"
 version = "0.1.0"
 description = "Scrape job postings, extract in-demand skills, and get career intelligence"
 requires-python = ">=3.12"
